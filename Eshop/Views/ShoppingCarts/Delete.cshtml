@@ -1,0 +1,16 @@
+﻿@model Eshop.Models.ShoppingCartModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Usuwanie przedmiotu z koszyka</h1>
+
+<h3>Czy jesteś pewny, że chcesz usunąć ten przedmiot?</h3>
+<div>
+    <form asp-action="Delete">
+        <input asp-action="Delete" type="submit" value="Usuń" class="btn btn-danger" /> 
+        <button asp-action="Index" type="submit" class="btn btn-dark">Wróć do koszyka</button>
+    </form>
+</div>

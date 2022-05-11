@@ -1,0 +1,20 @@
+﻿@model Eshop.Models.SentMessageModel
+
+
+<div class="row">
+    <div class="col">
+            <h3 style="padding-top: 10px;">Wysłana Wiadomość</h3>
+            <p><a style="font-weight:600;">Do:</a> @Model.ReceiverName</p>
+            <p><a style="font-weight:600;">Odnosnie ogłoszenia:</a> @Model.PostName</p>
+
+        <a style="font-weight:600;">Tytuł:</a>
+        <div class="message-title">
+            <a class="message-title-text">@Model.MessageTitle</a>
+        </div>
+
+        <a style="font-weight:600;">Wiadomość:</a>
+        <div class="message-content">
+            <a class="message-content-text">@Model.MessageContent</a>
+        </div>
+    </div>
+</div>

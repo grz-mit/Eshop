@@ -1,0 +1,36 @@
+﻿@model Eshop.ViewModels.MessageViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  
+}
+
+<h3 style="padding-top:10px;">Zadaj pytanie użytkownikowi: @Model.UserName</h3>
+<h3 class="breaking-wordDB">Odnośnie ogłoszenia: @Model.OfferTitle</h3>
+
+<hr />
+<div class="row">
+    <div class="col">
+        <form enctype="multipart/form-data" asp-action="SendMessage">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MessageDTO.UserId" value="@Model.MessageDTO.UserId" />
+            <input type="hidden" asp-for="MessageDTO.ReceiverName" value="@Model.MessageDTO.ReceiverName" />
+            <input type="hidden" asp-for="MessageDTO.OfferTitle" value="@Model.OfferTitle" />
+            <input type="hidden" asp-for="MessageDTO.OfferOwnerId" value="@Model.MessageDTO.OfferOwnerId" />
+            <div class="form-group">
+                <label asp-for="MessageDTO.MessageTitle" class="control-label">Tytuł:</label>
+                <input asp-for="MessageDTO.MessageTitle" class="form-control" />
+                <span asp-validation-for="MessageDTO.MessageTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageDTO.MessageContent" class="control-label">Wiadomość:</label>
+                <textarea class="form-control" rows="5" asp-for="MessageDTO.MessageContent"></textarea>
+                <span asp-validation-for="MessageDTO.MessageContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Wyślij Wiadomość" class="btn btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>

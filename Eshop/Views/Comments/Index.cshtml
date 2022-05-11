@@ -1,0 +1,88 @@
+﻿@model Eshop.ViewModels.CommentViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3 class="table-title-font">O Sprzedającym</h3>
+
+<hr>
+
+<div class="container">
+    <div style="flex-wrap: nowrap;" class="row table-row">
+        <div class="col-sm-6">
+            <p>Nazwa: <a style="font-weight:600">@Model.User.NickName</a></p>
+            <p>Email: <a style="font-weight:600">@Model.User.Email</a></p>
+            <p>Z nami od <a style="font-weight:600">@Model.User.CreateDate.ToString("d")</a></p>
+        </div>
+        <div class="col-sm-6 details-right-align">
+            <p>Ocena ogólna: <a style="font-weight:600">@Model.Avg</a><a>/5 </a><i class="fa fa-star"></i></p>
+            <p>Ilość komentarzy: <a style="font-weight:600">@Model.ComCount</a></p>
+        </div>
+    </div>
+    @if (Model.OfferBought.UserWhoBought == Model.LoggedUser.Id && Model.OfferBought.Comment == null)
+    {
+        <div class="commentbox-padding">
+            <div class="commentbox">
+                <form enctype="multipart/form-data" asp-action="AddCom" asp-controller="Comments">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="CreateCommentDTO.ReceiverUserId" value="@Model.OfferBought.UserId" />
+                        <input type="hidden" asp-for="CreateCommentDTO.SoldOfferId" value="@Model.OfferBought.Id" />
+                        <label class="control-label">Napisz Komentarz</label>
+                        <textarea class="form-control text-area-resize" rows="5" asp-for="CreateCommentDTO.Com"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Ocena</label>
+                        <select asp-for="CreateCommentDTO.Rate" class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="form-group details-right-align">
+                        <input type="submit" value="Opublikuj" class="btn btn-dark" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+    @foreach (var comment in Model.Comments)
+    {
+        <table class="table border-spacing-table">
+            <tbody>
+                <tr class="comment-shadow">
+                    <td class="td-width-first-col">
+                        <p class="table-content-w breaking-wordDB"><a style="font-weight:600">@Html.DisplayFor(modelItem => comment.NickName)</a></p>
+                    </td>
+                    <td>
+                        <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => comment.Com)</p>
+                    </td>
+                    <td>
+                        <p style="text-align: right; padding-right: 25px;">Ocena: @Html.DisplayFor(modelItem => comment.Rate)/5<i class="fa fa-star"></i></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        if (comment.Reply != null)
+        {
+            <table class="table border-spacing-table">
+                <tbody>
+                    <tr class="reply comment-shadow">
+                        <td class="replyinfo td-width-first-col">
+                            <p class="replyinfoin breaking-wordDB"><i class="fas fa-level-up-alt fa-flip-horizontal"></i> Odp <a style="font-weight:600">@Html.DisplayFor(modelItem => comment.Reply.NickName)</a></p>
+                        </td>
+                        <td>
+                            <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => comment.Reply.Com)</p>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    }
+</div>

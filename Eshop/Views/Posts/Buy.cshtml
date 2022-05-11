@@ -1,0 +1,110 @@
+﻿@model Eshop.ViewModels.BuyViewModel
+
+
+
+@{
+    ViewData["Title"] = "Buy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4 style="padding-bottom: 10px; padding-top: 10px;">Przedmiot który kupujesz</h4>
+
+<table class="table">
+    <tbody>
+        <tr data-href="posts/details/@Model.Post.Id">
+            <td>
+                <img class="image-size" src="@("/Images/" + Model.Post.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
+            </td>
+            <td>
+                <p class="table-title-w table-title-font"> @Model.Post.Title</p>
+                <p class="table-content-w breaking-wordDB">@Model.Post.Content</p>
+            </td>
+            <td>
+            </td>
+            <td class="price">
+                @Model.Post.Price <text> PLN</text>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<hr />
+
+
+<h4>Dane do Wysylki</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">Cena: @Model.Post.Price PLN</label>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Stan konta: @Model.BuyerWallet</label>
+        </div>
+        @if (Model.WalletAfterBuy >= 0)
+        {
+    <form enctype="multipart/form-data" asp-action="Buy">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label class="control-label">Stan konta po kupnie : @Model.WalletAfterBuy</label>
+        </div>
+        <input type="hidden" asp-for="SoldPost.UserId" value="@Model.Post.UserId" />
+        <input type="hidden" asp-for="SoldPost.Title" value="@Model.Post.Title" />
+        <input type="hidden" asp-for="SoldPost.Content" value="@Model.Post.Content" />
+        <input type="hidden" asp-for="SoldPost.Price" value="@Model.Post.Price" />
+        <input type="hidden" asp-for="SoldPost.Category" value="@Model.Post.Category" />
+        <input type="hidden" asp-for="SoldPost.Thumbnail" value="@Model.Post.GalleryModel.ImageModel[0].Name" />
+        <div class="form-group">
+            <label asp-for="SoldPost.ShippingInformation.Name" class="control-label">Imię</label>
+            <input asp-for="SoldPost.ShippingInformation.Name" class="form-control" />
+            <span asp-validation-for="SoldPost.ShippingInformation.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SoldPost.ShippingInformation.SecondName" class="control-label">Nazwisko</label>
+            <input asp-for="SoldPost.ShippingInformation.SecondName" class="form-control" />
+            <span asp-validation-for="SoldPost.ShippingInformation.SecondName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SoldPost.ShippingInformation.Email" class="control-label">Email</label>
+            <input asp-for="SoldPost.ShippingInformation.Email" class="form-control" />
+            <span asp-validation-for="SoldPost.ShippingInformation.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SoldPost.ShippingInformation.Address" class="control-label">Adres</label>
+            <input asp-for="SoldPost.ShippingInformation.Address" class="form-control" />
+            <span asp-validation-for="SoldPost.ShippingInformation.Address" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SoldPost.ShippingInformation.City" class="control-label">Miasto</label>
+            <input asp-for="SoldPost.ShippingInformation.City" class="form-control" />
+            <span asp-validation-for="SoldPost.ShippingInformation.City" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SoldPost.ShippingInformation.PostCode" class="control-label">Kod pocztowy</label>
+            <input asp-for="SoldPost.ShippingInformation.PostCode" class="form-control" />
+            <span asp-validation-for="SoldPost.ShippingInformation.PostCode" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SoldPost.ShippingInformation.PhoneNumber" class="control-label">Numer Telefonu</label>
+            <input type="number" asp-for="SoldPost.ShippingInformation.PhoneNumber" class="form-control" />
+            <span asp-validation-for="SoldPost.ShippingInformation.PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Kup" class="btn btn-success" />
+        </div>
+    </form>
+        }
+        else
+        {
+        <div class="form-group">
+            <label class="control-label">Stan konta po kupnie : <text class="text-danger">Nie wystarczajaca ilość środków na koncie.</text></label>
+        </div>
+        <div class="form-group">
+            <a asp-area="" asp-controller="DepositMoney" asp-action="Index" class="btn btn-success">Doładuj Konto</a>
+        </div> 
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,45 @@
+﻿@model Eshop.Models.ReceivedMessageModel
+
+
+<div class="row">
+    <div class="col">
+            <h3 style="padding-top: 10px;">Otrzymana Wiadomość</h3>
+            <p><a style="font-weight:600;">Od:</a> @Model.SenderName</p>
+            <p><a style="font-weight:600;">Odnosnie ogłoszenia:</a> @Model.PostName</p>
+
+        <a style="font-weight:600;">Tytuł:</a>
+        <div class="message-title">
+            <a class="message-title-text">@Model.MessageTitle</a>
+        </div>
+
+        <a style="font-weight:600;">Wiadomość:</a>
+        <div class="message-content">
+            <a class="message-content-text">@Model.MessageContent</a>
+        </div>
+    </div>
+</div>
+
+    <hr style="color:black; border-top:solid 1px;" />
+    <h3>Odpowiedź</h3>
+    <div class="row">
+        <div class="col">
+            <form enctype="multipart/form-data" asp-action="Reply">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="UserId" value="@Model.ReplyId" />
+                <input type="hidden" asp-for="PostName" value="@Model.PostName" />
+                <div class="form-group">
+                    <label asp-for="MessageTitle" class="control-label">Tytuł:</label>
+                    <input asp-for="MessageTitle" class="form-control" />
+                    <span asp-validation-for="MessageTitle" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MessageContent" class="control-label">Wiadomość:</label>
+                    <textarea class="form-control" rows="5" asp-for="MessageContent"></textarea>
+                    <span asp-validation-for="MessageContent" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Wyślij Wiadomość" class="btn btn-dark" />
+                </div>
+            </form>
+        </div>
+    </div>
