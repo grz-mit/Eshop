@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eshop.DTO
 {
-    public class CreatePostDTO
+    public class CreateOfferDTO
     {
         public string Title { get; set; }
         public string Content { get; set; }

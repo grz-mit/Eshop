@@ -52,8 +52,8 @@ namespace Eshop
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IOfferRepository, OfferRepository>();
+            services.AddScoped<IOfferService, OfferService>();
 
             services.AddScoped<ISoldPostRepository, SoldPostRepository>();
 

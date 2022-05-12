@@ -26,7 +26,7 @@ namespace Eshop.Models
         public CommentModel CommentModel { get; set; }
         public List<SentMessageModel> SentMessageModel { get; set; }
         public List<ReceivedMessageModel> ReceivedMessageModels { get; set; }
-        public List<PostModel> Posts { get; set; }
+        public List<OfferModel> Offers { get; set; }
         public List<SoldPostModel> SoldPosts { get; set; }
     }
 }

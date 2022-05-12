@@ -23,7 +23,7 @@ namespace Eshop.Repositories
         public async Task<List<SoldPostModel>> GetSoldItemsByUserId()
         {
             var result = await _context.SoldPosts.Where(p => p.UserId == _userContextService.UserId)
-                                                 .Include(p=>p.ShippingInformation)
+                                                 .Include(p => p.ShippingInformation)
                                                  .ToListAsync();
 
             return result;
@@ -42,7 +42,7 @@ namespace Eshop.Repositories
         public async Task<SoldPostModel> GetBoughtOffer(int mainOfferId)
         {
             var result = await _context.SoldPosts.Include(p => p.User)
-                                                 .Include(p=>p.Comment)
+                                                 .Include(p => p.Comment)
                                                  .Include(p => p.ShippingInformation)
                                                  .FirstOrDefaultAsync(p => p.Id == mainOfferId);
 

@@ -12,20 +12,20 @@ namespace Eshop
     {
         public EshopMappingProfile()
         {
-            CreateMap<PostModel, SoldPostModel>();
+            CreateMap<OfferModel, SoldPostModel>();
             
-            CreateMap<CreatePostDTO, PostModel>();
+            CreateMap<CreateOfferDTO, OfferModel>();
 
             CreateMap<MessageDTO, ReceivedMessageModel>()
                         .ForMember(r => r.ReplyId, m => m.MapFrom(dto => dto.UserId))
-                        .ForMember(r => r.PostName, m => m.MapFrom(dto => dto.OfferTitle))
+                        .ForMember(r => r.OfferTitle, m => m.MapFrom(dto => dto.OfferTitle))
                         .ForMember(r => r.UserId, m => m.MapFrom(dto => dto.OfferOwnerId));
 
             CreateMap<MessageDTO, SentMessageModel>()
-                        .ForMember(s => s.PostName, m => m.MapFrom(dto => dto.OfferTitle));
+                        .ForMember(s => s.OfferTitle, m => m.MapFrom(dto => dto.OfferTitle));
 
             CreateMap<CreateCommentDTO, CommentModel>()
-                        .ForMember(c => c.PostUserId, m => m.MapFrom(dto => dto.ReceiverUserId));                                                                                                  
+                        .ForMember(c => c.OfferUserId, m => m.MapFrom(dto => dto.ReceiverUserId));                                                                                                  
         }
     }
 }

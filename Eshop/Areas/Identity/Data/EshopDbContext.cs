@@ -20,7 +20,7 @@ namespace Eshop.Data
             base.OnModelCreating(builder);
         }
 
-        public DbSet<PostModel> Posts { get; set; }
+        public DbSet<OfferModel> Offers { get; set; }
         public DbSet<GalleryModel> Galleries { get; set; }
         public DbSet<ShoppingCartModel> ShoppingCarts { get; set; }
         public DbSet<CommentModel> Comments { get; set; }

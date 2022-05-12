@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace Eshop.Services
 {
-    public class PostService : IPostService
+    public class OfferService : IOfferService
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IOfferRepository _offerRepository;
         private readonly IUserContextService _userContextService;
         private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IWebHostEnvironment _hostEnvironment;
@@ -27,12 +27,12 @@ namespace Eshop.Services
         private readonly ISoldPostRepository _soldPostRepository;
         private readonly IMapper _mapper;
 
-        public PostService(IMapper mapper, IPostRepository postRepository, IUserContextService userContextService,
+        public OfferService(IMapper mapper, IOfferRepository offerRepository, IUserContextService userContextService,
             IShoppingCartRepository shoppingCartRepository, IWebHostEnvironment hostEnvironment, 
             IUserRepository userRepository, ISoldPostRepository soldPostRepository)
         {
             _mapper = mapper;
-            _postRepository = postRepository;
+            _offerRepository = offerRepository;
             _userContextService = userContextService;
             _shoppingCartRepository = shoppingCartRepository;
             _hostEnvironment = hostEnvironment;
@@ -40,35 +40,35 @@ namespace Eshop.Services
             _soldPostRepository = soldPostRepository;
         }
 
-        public async Task<List<PostModel>> FilteredPosts(string searchString, string postCategory, decimal postPriceFrom, decimal postPriceTo)
+        public async Task<List<OfferModel>> FilteredOffers(string searchString, string offerCategory, decimal offerPriceFrom, decimal offerPriceTo)
         {
-            var posts = _postRepository.GetAll();
+            var offers = _offerRepository.GetAll();
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                posts = posts.Where(s => s.Title.Contains(searchString));
+                offers = offers.Where(s => s.Title.Contains(searchString));
             }
-            if (!string.IsNullOrEmpty(postCategory))
+            if (!string.IsNullOrEmpty(offerCategory))
             {
-                posts = posts.Where(x => x.Category == postCategory);
+                offers = offers.Where(x => x.Category == offerCategory);
             }
-            if (postPriceFrom != 0)
+            if (offerPriceFrom != 0)
             {
-                posts = posts.Where(x => x.Price >= postPriceFrom);
+                offers = offers.Where(x => x.Price >= offerPriceFrom);
             }
-            if (postPriceTo != 0)
+            if (offerPriceTo != 0)
             {
-                posts = posts.Where(x => x.Price <= postPriceTo);
+                offers = offers.Where(x => x.Price <= offerPriceTo);
             }
 
-            return await posts.ToListAsync();
+            return await offers.ToListAsync();
         }
 
         public async Task<SelectList> Categories()
         {
-            var posts = _postRepository.GetAll();
+            var offers = _offerRepository.GetAll();
 
-            List<string> category = await posts.OrderBy(p => p.Category)
+            List<string> category = await offers.OrderBy(p => p.Category)
                                                .Select(p => p.Category)
                                                .Distinct()
                                                .ToListAsync();
@@ -78,54 +78,54 @@ namespace Eshop.Services
             return genres;
         }
  
-        public async Task<PostDetailsViewModel> GetDetailPostVM(int? id)
+        public async Task<OfferDetailsViewModel> GetDetailsOfferVM(int? id)
         {
             var inCart = false;
-            var posts = _postRepository.GetAll();          
-            var post = await posts.Include(p=>p.User)
+            var offers = _offerRepository.GetAll();          
+            var offer = await offers.Include(p=>p.User)
                                   .Include(p=>p.GalleryModel.ImageModel)
                                   .FirstOrDefaultAsync(p => p.Id == id);
 
             var userCartItems = await _shoppingCartRepository.GetUserCartItems();
             
-            if (post == null)
+            if (offer == null)
                 throw new NotFoundException();
 
-            if (userCartItems.Any(p => p.PostId == id))
+            if (userCartItems.Any(p => p.OfferId == id))
                 inCart = true;
 
-            var otherPosts = await posts.Where(p => p.UserId == post.UserId && p.Id != id).ToListAsync();
+            var otherOffers = await offers.Where(p => p.UserId == offer.UserId && p.Id != id).ToListAsync();
 
-            var postDetailsVM = new PostDetailsViewModel
+            var offerDetailsVM = new OfferDetailsViewModel
             {
-                Post = post,
-                OtherPosts = otherPosts,
+                Offer = offer,
+                OtherOffers = otherOffers,
                 UserId = _userContextService.UserId,
                 InCart = inCart
             };
             
-            return postDetailsVM;
+            return offerDetailsVM;
         }
 
-        public async Task<PostModel> PostToDelete(int? id)
+        public async Task<OfferModel> OfferToDelete(int? id)
         {
-            var post = await _postRepository.GetById(id);
+            var offer = await _offerRepository.GetById(id);
 
-            if (post == null)
+            if (offer == null)
                 throw new NotFoundException();
 
-            if (post.UserId != _userContextService.UserId)
+            if (offer.UserId != _userContextService.UserId)
                 throw new UnauthorizedAccessException();
 
-            return post;
+            return offer;
         }
 
-        public async Task DeletePost(int id)
+        public async Task DeleteOffer(int id)
         {
             var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "images");
-            var post = await _postRepository.GetById(id);
+            var offer = await _offerRepository.GetById(id);
 
-            foreach(var image in post.GalleryModel.ImageModel)
+            foreach(var image in offer.GalleryModel.ImageModel)
             {
                 if(image.Name != "noimage.png")
                 {
@@ -133,49 +133,49 @@ namespace Eshop.Services
                 }
             }
 
-            await _postRepository.DeletePost(post);
+            await _offerRepository.DeleteOffer(offer);
         }
 
-        public async Task<BuyViewModel> PostToBuy(int? id)
+        public async Task<BuyViewModel> OfferToBuy(int? id)
         {
 
             var buyer = await _userRepository.GetById(_userContextService.UserId);
-            var post = await _postRepository.GetById(id);
+            var offer = await _offerRepository.GetById(id);
 
-            if (post == null)
+            if (offer == null)
                 throw new NotFoundException();
 
-            if (post.UserId == buyer.Id)
+            if (offer.UserId == buyer.Id)
                 throw new UnauthorizedAccessException();
 
             var buyVM = new BuyViewModel()
             {
-                Post = post,
+                Offer = offer,
                 BuyerWallet = buyer.Wallet,
-                WalletAfterBuy = buyer.Wallet - post.Price
+                WalletAfterBuy = buyer.Wallet - offer.Price
             };
 
             return buyVM;
         }
 
-        public async Task BuyPost(int id, SoldPostModel soldPost)
+        public async Task BuyOffer(int id, SoldPostModel soldPost)
         {
             var index = 0;
             var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "images");
             var buyer = await _userRepository.GetById(_userContextService.UserId);
-            var post = await _postRepository.GetById(id);
+            var offer = await _offerRepository.GetById(id);
             
-            var seller = post.User;
+            var seller = offer.User;
 
-            var sellerWalletBallance = seller.Wallet + post.Price;
+            var sellerWalletBallance = seller.Wallet + offer.Price;
 
             if (sellerWalletBallance > 999999.99m)
                 throw new BalanceExceededException();
 
-            if(buyer.Wallet - post.Price >= 0)
+            if(buyer.Wallet - offer.Price >= 0)
             {
-                seller.Wallet = seller.Wallet + post.Price;
-                buyer.Wallet = buyer.Wallet - post.Price;
+                seller.Wallet = seller.Wallet + offer.Price;
+                buyer.Wallet = buyer.Wallet - offer.Price;
 
                 soldPost.UserWhoBought = _userContextService.UserId;
                 soldPost.SoldDate = DateTime.Now;
@@ -183,9 +183,9 @@ namespace Eshop.Services
                 await _soldPostRepository.CreateSoldPost(soldPost);
                 await _userRepository.UpdateUser(seller);
                 await _userRepository.UpdateUser(buyer);
-                await _postRepository.DeletePost(post);
+                await _offerRepository.DeleteOffer(offer);
 
-                foreach (var image in post.GalleryModel.ImageModel)
+                foreach (var image in offer.GalleryModel.ImageModel)
                 {
                     if (image.Name != "noimage.png" && index != 0)
                     {
@@ -201,22 +201,22 @@ namespace Eshop.Services
             }
         }
 
-        public async Task CreatePost (CreatePostDTO createPostDTO)
+        public async Task CreateOffer (CreateOfferDTO createOfferDTO)
         {      
             string wwwRootPath = _hostEnvironment.WebRootPath;
             string path;
             string fileName;
             string extension;
 
-            var post = _mapper.Map<PostModel>(createPostDTO);
-            post.GalleryModel = new GalleryModel();
-            post.GalleryModel.ImageModel = new List<ImageModel>();
-            post.UserId = _userContextService.UserId;
-            post.CreateDate = DateTime.Now;
+            var offer = _mapper.Map<OfferModel>(createOfferDTO);
+            offer.GalleryModel = new GalleryModel();
+            offer.GalleryModel.ImageModel = new List<ImageModel>();
+            offer.UserId = _userContextService.UserId;
+            offer.CreateDate = DateTime.Now;
             
-            if(createPostDTO.ImageFile != null)
+            if(createOfferDTO.ImageFile != null)
             {
-                foreach(IFormFile image in createPostDTO.ImageFile)
+                foreach(IFormFile image in createOfferDTO.ImageFile)
                 {
                     fileName = Path.GetFileNameWithoutExtension(image.FileName);
                     extension = Path.GetExtension(image.FileName);
@@ -227,7 +227,7 @@ namespace Eshop.Services
                         Name = fileName
                     };                   
 
-                    post.GalleryModel.ImageModel.Add(imageModel);
+                    offer.GalleryModel.ImageModel.Add(imageModel);
                     path = Path.Combine(wwwRootPath + "/Images/", fileName);
                     
                     using (var fileStream = new FileStream(path, FileMode.Create))
@@ -243,16 +243,16 @@ namespace Eshop.Services
                     Name = "noimage.png"
                 };
 
-                post.GalleryModel.ImageModel.Add(imageModel);
+                offer.GalleryModel.ImageModel.Add(imageModel);
             }
 
-            await _postRepository.CreatePost(post);
+            await _offerRepository.CreateOffer(offer);
 
         }
 
-        public async Task<List<PostModel>> OffersOwnedByUser()
+        public async Task<List<OfferModel>> OffersOwnedByUser()
         {
-            var offers = await _postRepository.OwnedByUser();
+            var offers = await _offerRepository.OwnedByUser();
             return offers;
         }
     }

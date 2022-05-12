@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Eshop.Models
 {
-    public class PostModel
+    public class OfferModel
     {
         public int Id { get; set; }
        

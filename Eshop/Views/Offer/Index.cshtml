@@ -1,4 +1,4 @@
-﻿@model Eshop.ViewModels.CategoryModel
+﻿@model Eshop.ViewModels.CategoryViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,7 +13,7 @@
 
 <h1 style="padding-top: 10px; padding-bottom: 10px;">Oferty</h1>
 
-<form class="searchPost" asp-controller="Posts" asp-action="Index" method="get">
+<form class="searchPost" asp-controller="Offer" asp-action="Index" method="get">
     <p>
         <input type="text" placeholder="Szukaj.." name="searchString">
         <input type="number" step=".01" min="0" placeholder="Cena: Od" name="postPriceFrom">
@@ -27,9 +27,9 @@
 
 <table style="border-bottom:solid 1px #dee2e6;" class="table table-hover">
     <tbody>
-        @foreach (var item in Model.Posts)
+        @foreach (var item in Model.Offers)
         {
-            <tr data-href="posts/details/@item.Id" style="transition: background 0.4s ease-out;">
+            <tr data-href="Offer/Details/@item.Id" style="transition: background 0.4s ease-out;">
                 <td>
                     <img class="image-size" src="@("/Images/"+item.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
                 </td>

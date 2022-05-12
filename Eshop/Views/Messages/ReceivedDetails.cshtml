@@ -5,7 +5,7 @@
     <div class="col">
             <h3 style="padding-top: 10px;">Otrzymana Wiadomość</h3>
             <p><a style="font-weight:600;">Od:</a> @Model.SenderName</p>
-            <p><a style="font-weight:600;">Odnosnie ogłoszenia:</a> @Model.PostName</p>
+            <p><a style="font-weight:600;">Odnosnie ogłoszenia:</a> @Model.OfferTitle</p>
 
         <a style="font-weight:600;">Tytuł:</a>
         <div class="message-title">
@@ -26,7 +26,7 @@
             <form enctype="multipart/form-data" asp-action="Reply">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="UserId" value="@Model.ReplyId" />
-                <input type="hidden" asp-for="PostName" value="@Model.PostName" />
+                <input type="hidden" asp-for="OfferTitle" value="@Model.OfferTitle" />
                 <div class="form-group">
                     <label asp-for="MessageTitle" class="control-label">Tytuł:</label>
                     <input asp-for="MessageTitle" class="form-control" />

@@ -29,7 +29,7 @@ namespace Eshop.Repositories
 
         public async Task<List<CommentModel>> GetReceivedComments()
         {
-            var result = await _context.Comments.Where(p => p.PostUserId == _userContextService.UserId)
+            var result = await _context.Comments.Where(p => p.OfferUserId == _userContextService.UserId)
                                                 .Include(p=>p.Reply)
                                                 .ToListAsync();
 
@@ -38,7 +38,7 @@ namespace Eshop.Repositories
 
         public async Task<List<CommentModel>> GetReceivedComments(string id)
         {
-            var result = await _context.Comments.Where(p => p.PostUserId == id)
+            var result = await _context.Comments.Where(p => p.OfferUserId == id)
                                                 .Include(p => p.Reply)
                                                 .ToListAsync();
 

@@ -13,17 +13,17 @@ namespace Eshop.Services
 {
     public class MessagesService : IMessagesService
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IOfferRepository _offerRepository;
         private readonly IUserRepository _userRepository;
         private readonly IUserContextService _userContextService;
         private readonly IMapper _mapper;
         private readonly IMessagesRepository _messagesRepository;
         private readonly IReceivedMessagesRepository _receivedMessagesRepository;
 
-        public MessagesService(IPostRepository postRepository, IUserRepository userRepository,
+        public MessagesService(IOfferRepository offerRepository, IUserRepository userRepository,
             IUserContextService userContextService, IMapper mapper, IMessagesRepository messagesRepository, IReceivedMessagesRepository receivedMessagesRepository)
         {
-            _postRepository = postRepository;
+            _offerRepository = offerRepository;
             _userRepository = userRepository;
             _userContextService = userContextService;
             _mapper = mapper;
@@ -33,23 +33,23 @@ namespace Eshop.Services
 
         public async Task<MessageViewModel> GetMessageVM(int id)
         {
-            var post = await _postRepository.GetById(id);
+            var offer = await _offerRepository.GetById(id);
 
-            if (post == null)
+            if (offer == null)
                 throw new NotFoundException();
 
-            if (post.User.Id == _userContextService.UserId)
+            if (offer.User.Id == _userContextService.UserId)
                 throw new UnauthorizedAccessException();
 
             return new MessageViewModel()
             {
-                UserName = post.User.NickName,
-                OfferTitle = post.Title,
+                UserName = offer.User.NickName,
+                OfferTitle = offer.Title,
                 
                 MessageDTO = new MessageDTO()
                 {
-                    ReceiverName = post.User.NickName,
-                    OfferOwnerId = post.UserId,
+                    ReceiverName = offer.User.NickName,
+                    OfferOwnerId = offer.UserId,
                     UserId = _userContextService.UserId
                 }
             };
@@ -118,7 +118,7 @@ namespace Eshop.Services
                 MessageTitle = receivedMessage.MessageTitle,
                 MessageContent = receivedMessage.MessageContent,
                 ReceiverName = userReceiving.NickName,
-                PostName = receivedMessage.PostName,
+                OfferTitle = receivedMessage.OfferTitle,
                 SentDate = sentDate
             };
 

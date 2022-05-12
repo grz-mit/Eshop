@@ -8,7 +8,7 @@ namespace Eshop.Services
     {
         Task AddToCart(int id);
         Task<IEnumerable<ShoppingCartModel>> GetUserCartItems();
-        Task GetUserCartItemByPostId(int? id);
+        Task GetUserCartItemByOfferId(int? id);
         Task DeleteItemFromCart(int id);
     }
 }

@@ -13,8 +13,8 @@ namespace Eshop.Models
 
         public string CartId { get; set; }
 
-        public int PostId { get; set; }
+        public int OfferId { get; set; }
 
-        public PostModel Post { get; set; }
+        public OfferModel Offer { get; set; }
     }
 }

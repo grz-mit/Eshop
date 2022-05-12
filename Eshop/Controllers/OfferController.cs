@@ -19,13 +19,13 @@ using Eshop.DTO;
 
 namespace Eshop.Controllers
 {
-    public class PostsController : Controller
+    public class OfferController : Controller
     {
         private readonly IWebHostEnvironment _hostEnvironment;
-        private readonly IPostService _postService;
+        private readonly IOfferService _postService;
         private readonly IUserContextService _userContextService;
 
-        public PostsController(IWebHostEnvironment hostEnvironment, IPostService postService, IUserContextService userContextService)
+        public OfferController(IWebHostEnvironment hostEnvironment, IOfferService postService, IUserContextService userContextService)
         {
             _hostEnvironment = hostEnvironment;
             _postService = postService;
@@ -36,10 +36,10 @@ namespace Eshop.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index(string searchString, string postCategory, decimal postPriceFrom, decimal postPriceTo)
         {
-            var postGenreVM = new CategoryModel
+            var postGenreVM = new CategoryViewModel
             {
                 Genres = await _postService.Categories(),
-                Posts = await _postService.FilteredPosts(searchString, postCategory, postPriceFrom, postPriceTo)
+                Offers = await _postService.FilteredOffers(searchString, postCategory, postPriceFrom, postPriceTo)
             };
 
             return View(postGenreVM);
@@ -48,9 +48,9 @@ namespace Eshop.Controllers
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var postDetailsVM = await _postService.GetDetailPostVM(id);
+            var offerDetailVM = await _postService.GetDetailsOfferVM(id);
 
-            return View(postDetailsVM);
+            return View(offerDetailVM);
         }
 
         // GET: Posts/Create
@@ -64,11 +64,11 @@ namespace Eshop.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreatePostDTO postDTO)
+        public async Task<IActionResult> Create(CreateOfferDTO offerDTO)
         {
             if (ModelState.IsValid)
             {
-                await _postService.CreatePost(postDTO);
+                await _postService.CreateOffer(offerDTO);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -80,9 +80,9 @@ namespace Eshop.Controllers
         // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            var post = await _postService.PostToDelete(id);
+            var offer = await _postService.OfferToDelete(id);
 
-            return View(post);
+            return View(offer);
         }
 
         // POST: Posts/Delete/5
@@ -90,14 +90,14 @@ namespace Eshop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _postService.DeletePost(id);
+            await _postService.DeleteOffer(id);
             return RedirectToAction(nameof(Index));
         }
 
 
         public async Task<IActionResult> Buy(int? id)
         {
-            var buyVM = await _postService.PostToBuy(id);
+            var buyVM = await _postService.OfferToBuy(id);
 
             return View(buyVM);
         }
@@ -111,7 +111,7 @@ namespace Eshop.Controllers
                 return RedirectToAction(nameof(Buy));
             }
 
-            await _postService.BuyPost(id, soldPost);
+            await _postService.BuyOffer(id, soldPost);
 
             return RedirectToAction(nameof(Index));
 

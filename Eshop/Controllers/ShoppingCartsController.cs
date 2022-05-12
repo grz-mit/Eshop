@@ -39,7 +39,7 @@ namespace Eshop.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            await _shoppingCartService.GetUserCartItemByPostId(id);
+            await _shoppingCartService.GetUserCartItemByOfferId(id);
 
             return View();
         }

@@ -12,13 +12,13 @@ namespace Eshop.Services
     public class ShoppingCartService : IShoppingCartService
     {
         private readonly IShoppingCartRepository _shoppingCartRepository;
-        private readonly IPostRepository _postRepository;
+        private readonly IOfferRepository _offerRepository;
         private readonly IUserContextService _userContextService;
 
-        public ShoppingCartService(IShoppingCartRepository shoppingCartRepository, IPostRepository postRepository, IUserContextService userContextService)
+        public ShoppingCartService(IShoppingCartRepository shoppingCartRepository, IOfferRepository offerRepository, IUserContextService userContextService)
         {
             _shoppingCartRepository = shoppingCartRepository;
-            _postRepository = postRepository;
+            _offerRepository = offerRepository;
             _userContextService = userContextService;
         }
 
@@ -31,20 +31,20 @@ namespace Eshop.Services
 
         public async Task AddToCart(int id)
         {
-            var post = await _postRepository.GetById(id);
+            var offer = await _offerRepository.GetById(id);
 
-            if (post.UserId != _userContextService.UserId)
+            if (offer.UserId != _userContextService.UserId)
             {
                 var cartItems = await _shoppingCartRepository.GetUserCartItems();
 
-                if (cartItems.Any(p => p.PostId == id))
+                if (cartItems.Any(p => p.OfferId == id))
                 {
                     throw new ForbiddenActionException();
                 }
 
                 var cartItem = new ShoppingCartModel
                 {
-                    PostId = id,
+                    OfferId = id,
                     CartId = _userContextService.UserId
                 };
 
@@ -57,10 +57,10 @@ namespace Eshop.Services
             }
         }
 
-        public async Task GetUserCartItemByPostId(int? id)
+        public async Task GetUserCartItemByOfferId(int? id)
         {
             var cartItems = await _shoppingCartRepository.GetUserCartItems();
-            var item = cartItems.FirstOrDefault(s => s.PostId == id);
+            var item = cartItems.FirstOrDefault(s => s.OfferId == id);
 
             if (item == null)
             {
@@ -71,7 +71,7 @@ namespace Eshop.Services
         public async Task DeleteItemFromCart(int id)
         {
             var cartItems = await _shoppingCartRepository.GetUserCartItems();
-            var item = cartItems.FirstOrDefault(s => s.PostId == id);
+            var item = cartItems.FirstOrDefault(s => s.OfferId == id);
 
             await _shoppingCartRepository.DeleteItemFromCart(item);
         }

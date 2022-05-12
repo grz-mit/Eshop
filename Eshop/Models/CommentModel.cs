@@ -12,7 +12,7 @@ namespace Eshop.Models
         public int Id { get; set; }
         [Required]
         public string UserId { get; set; }
-        public string PostUserId { get; set; } 
+        public string OfferUserId { get; set; } 
         //public int PostId { get; set; } 
         //public string IdForReply { get; set; }
         public int SoldOfferId { get; set; }

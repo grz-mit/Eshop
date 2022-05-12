@@ -11,18 +11,18 @@
 
 <table class="table">
     <tbody>
-        <tr data-href="posts/details/@Model.Post.Id">
+        <tr data-href="posts/details/@Model.Offer.Id">
             <td>
-                <img class="image-size" src="@("/Images/" + Model.Post.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
+                <img class="image-size" src="@("/Images/" + Model.Offer.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
             </td>
             <td>
-                <p class="table-title-w table-title-font"> @Model.Post.Title</p>
-                <p class="table-content-w breaking-wordDB">@Model.Post.Content</p>
+                <p class="table-title-w table-title-font"> @Model.Offer.Title</p>
+                <p class="table-content-w breaking-wordDB">@Model.Offer.Content</p>
             </td>
             <td>
             </td>
             <td class="price">
-                @Model.Post.Price <text> PLN</text>
+                @Model.Offer.Price <text> PLN</text>
             </td>
         </tr>
     </tbody>
@@ -35,7 +35,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group">
-            <label class="control-label">Cena: @Model.Post.Price PLN</label>
+            <label class="control-label">Cena: @Model.Offer.Price PLN</label>
         </div>
         <div class="form-group">
             <label class="control-label">Stan konta: @Model.BuyerWallet</label>
@@ -47,12 +47,12 @@
         <div class="form-group">
             <label class="control-label">Stan konta po kupnie : @Model.WalletAfterBuy</label>
         </div>
-        <input type="hidden" asp-for="SoldPost.UserId" value="@Model.Post.UserId" />
-        <input type="hidden" asp-for="SoldPost.Title" value="@Model.Post.Title" />
-        <input type="hidden" asp-for="SoldPost.Content" value="@Model.Post.Content" />
-        <input type="hidden" asp-for="SoldPost.Price" value="@Model.Post.Price" />
-        <input type="hidden" asp-for="SoldPost.Category" value="@Model.Post.Category" />
-        <input type="hidden" asp-for="SoldPost.Thumbnail" value="@Model.Post.GalleryModel.ImageModel[0].Name" />
+        <input type="hidden" asp-for="SoldPost.UserId" value="@Model.Offer.UserId" />
+        <input type="hidden" asp-for="SoldPost.Title" value="@Model.Offer.Title" />
+        <input type="hidden" asp-for="SoldPost.Content" value="@Model.Offer.Content" />
+        <input type="hidden" asp-for="SoldPost.Price" value="@Model.Offer.Price" />
+        <input type="hidden" asp-for="SoldPost.Category" value="@Model.Offer.Category" />
+        <input type="hidden" asp-for="SoldPost.Thumbnail" value="@Model.Offer.GalleryModel.ImageModel[0].Name" />
         <div class="form-group">
             <label asp-for="SoldPost.ShippingInformation.Name" class="control-label">Imię</label>
             <input asp-for="SoldPost.ShippingInformation.Name" class="form-control" />

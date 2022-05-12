@@ -1,4 +1,4 @@
-﻿@model Eshop.ViewModels.PostDetailsViewModel
+﻿@model Eshop.ViewModels.OfferDetailsViewModel
 @using Eshop.Models
 
 
@@ -17,23 +17,22 @@
 
 <html>
 <body>
-
     <div class="modal fade modal-fullscreen force-fullscreen" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-body">
                     <div id="carouselExampleIndicators2" class="carousel slide carousel-fit" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            @for (int i = 0; i < Model.Post.GalleryModel.ImageModel.Count(); i++)
+                            @for (int i = 0; i < Model.Offer.GalleryModel.ImageModel.Count(); i++)
                             {
                                 <li data-target="#carouselExampleIndicators2" data-slide-to="@i" class="@(i==0 ? "active" : "")"></li>
                             }
                         </ol>
                         <div class="carousel-inner">
-                            @for (int i = 0; i < Model.Post.GalleryModel.ImageModel.Count(); i++)
+                            @for (int i = 0; i < Model.Offer.GalleryModel.ImageModel.Count(); i++)
                             {
                                 <div class="@(i==0 ? "carousel-item active" : "carousel-item")">
-                                    <img class="d-block w-100" src="@("/Images/" + Model.Post.GalleryModel.ImageModel[i].Name)" alt="First slide">
+                                    <img class="d-block w-100" src="@("/Images/" + Model.Offer.GalleryModel.ImageModel[i].Name)" alt="First slide">
                                 </div>
                             }
                         </div>
@@ -50,29 +49,27 @@
             </div>
         </div>
     </div>
-
     <section id="about" class="light">
         <header class="title">
-            <h2 class="table-title-font breaking-wordDB">@Model.Post.Title</h2>
+            <h2 class="table-title-font breaking-wordDB">@Model.Offer.Title</h2>
         </header>
         <hr />
-
         <div class="container">
             <div class="row table-row">
                 <div class="col-sm-6 hidden-xs image-detail-margin">
                     <div class="section-content">
                         <div id="carouselExampleIndicators" class="carousel slide carousel-fit" data-ride="carousel">
                             <ol class="carousel-indicators">
-                                @for (int i = 0; i < Model.Post.GalleryModel.ImageModel.Count(); i++)
+                                @for (int i = 0; i < Model.Offer.GalleryModel.ImageModel.Count(); i++)
                                 {
                                     <li data-target="#carouselExampleIndicators" data-slide-to="@i" class="@(i==0 ? "active" : "")"></li>
                                 }
                             </ol>
                             <div class="carousel-inner">
-                                @for (int i = 0; i < Model.Post.GalleryModel.ImageModel.Count(); i++)
+                                @for (int i = 0; i < Model.Offer.GalleryModel.ImageModel.Count(); i++)
                                 {
                                     <div class="@(i==0 ? "carousel-item active" : "carousel-item")">
-                                        <img data-toggle="modal" data-target="#myModal" data-local="#carouselExampleIndicators" class="d-block details-image-size" src="@("/Images/"+Model.Post.GalleryModel.ImageModel[i].Name)" alt="First slide">
+                                        <img data-toggle="modal" data-target="#myModal" data-local="#carouselExampleIndicators" class="d-block details-image-size" src="@("/Images/"+Model.Offer.GalleryModel.ImageModel[i].Name)" alt="First slide">
                                     </div>
                                 }
                             </div>
@@ -90,61 +87,55 @@
                 <div class="col-sm-3">
                     <div class="section-content">
                         <h4>Sprzedający</h4>
-                        <a asp-action="UserDetailsOffer" asp-controller="UserDetails" asp-route-offerId="@Model.Post.Id" asp-route-offerOwnerId="@Model.Post.UserId"><p class="breaking-wordDB">@Model.Post.User.NickName</p></a>
+                        <a asp-action="UserDetailsOffer" asp-controller="UserDetails" asp-route-offerId="@Model.Offer.Id" asp-route-offerOwnerId="@Model.Offer.UserId"><p class="breaking-wordDB">@Model.Offer.User.NickName</p></a>
                         <h4>Cena</h4>
-                        <p style="text-align: left" class="price">@Model.Post.Price PLN</p>
+                        <p style="text-align: left" class="price">@Model.Offer.Price PLN</p>
                         <h4>Data Utworzenia</h4>
-                        <p class="breaking-wordDB">@Model.Post.CreateDate.ToString("g")</p>
+                        <p class="breaking-wordDB">@Model.Offer.CreateDate.ToString("g")</p>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="section-content">
                         <h4>Kategoria</h4>
-                        <p>@Model.Post.Category</p>
+                        <p>@Model.Offer.Category</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
     <hr />
-
-    
     <div class="container" style="padding-top: 10px;">
         <h4>Opis</h4>
-        <p class="breaking-wordDB">@Model.Post.Content</p>
+        <p class="breaking-wordDB">@Model.Offer.Content</p>
     </div>
-
-
     <div class="details-buttons">
-        @if (Model.Post.UserId == Model.UserId)
+        @if (Model.Offer.UserId == Model.UserId)
         {
-            <a asp-action="Delete" asp-route-id="@Model.Post.Id" class="btn btn-danger">Usuń ogłoszenie</a> <text>|</text>
+            <a asp-action="Delete" asp-route-id="@Model.Offer.Id" class="btn btn-danger">Usuń ogłoszenie</a> <text>|</text>
         }
 
-        @if (Model.Post.UserId != Model.UserId && Model.InCart != true)
+        @if (Model.Offer.UserId != Model.UserId && Model.InCart != true)
         {
-            <a asp-action="Buy" asp-route-id="@Model.Post.Id" class="btn btn-success">Kup</a> <text>|</text>
-            <a asp-action="AddToCart" asp-controller="ShoppingCarts" asp-route-id="@Model.Post.Id" class="btn btn-dark">Dodaj do koszyka</a> <text>|</text>
+            <a asp-action="Buy" asp-route-id="@Model.Offer.Id" class="btn btn-success">Kup</a> <text>|</text>
+            <a asp-action="AddToCart" asp-controller="ShoppingCarts" asp-route-id="@Model.Offer.Id" class="btn btn-dark">Dodaj do koszyka</a> <text>|</text>
         }
-        else if (Model.Post.UserId != Model.UserId)
+        else if (Model.Offer.UserId != Model.UserId)
         {
-            <a asp-action="Buy" asp-route-id="@Model.Post.Id" class="btn btn-success">Kup</a> <text>|</text>
-            <a asp-action="Delete" asp-controller="ShoppingCarts" asp-route-id="@Model.Post.Id" class="btn btn-danger">Usuń z koszyka</a> <text>|</text>
+            <a asp-action="Buy" asp-route-id="@Model.Offer.Id" class="btn btn-success">Kup</a> <text>|</text>
+            <a asp-action="Delete" asp-controller="ShoppingCarts" asp-route-id="@Model.Offer.Id" class="btn btn-danger">Usuń z koszyka</a> <text>|</text>
         }
         <a asp-action="Index" class="btn btn-dark">Powrot do listy</a>
     </div>
-
     <hr style="color: black; border-top: 1px solid;" />
-    <h3 class="container">Inne ogłoszenia użytkownika @Model.Post.User.NickName</h3>
-    @if (Model.OtherPosts.Count != 0)
+    <h3 class="container">Inne ogłoszenia użytkownika @Model.Offer.User.NickName</h3>
+    @if (Model.OtherOffers.Count != 0)
     {
         <div class="container cta-100 ">
             <div class="container">
                 <div class="row blog">
                     <div class="col-md-12">
                         <div class="row">
-                            @foreach (var item in Model.OtherPosts)
+                            @foreach (var item in Model.OtherOffers)
                             {
                                 if (index > 2)
                                 {

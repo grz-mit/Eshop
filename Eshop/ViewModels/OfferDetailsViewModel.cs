@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Eshop.ViewModels
 {
-    public class PostDetailsViewModel
+    public class OfferDetailsViewModel
     {
-        public PostModel Post { get; set; }
-        public List<PostModel> OtherPosts { get; set; }
+        public OfferModel Offer { get; set; }
+        public List<OfferModel> OtherOffers { get; set; }
         public bool InCart { get; set; }   
         public string UserId { get; set; }
     }

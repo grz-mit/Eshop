@@ -8,9 +8,9 @@ namespace Eshop.Models
     public class GalleryModel
     {
         public int Id { get; set; }
-        public int PostId { get; set; }
+        public int OfferId { get; set; }
         public List<ImageModel> ImageModel { get; set; }
-        public PostModel Post { get; set; }
+        public OfferModel Offer { get; set; }
 
     }
 }

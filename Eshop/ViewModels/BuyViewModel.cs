@@ -8,7 +8,7 @@ namespace Eshop.ViewModels
 {
     public class BuyViewModel
     {
-        public PostModel Post { get; set; }
+        public OfferModel Offer { get; set; }
         public SoldPostModel SoldPost { get; set; }
         public decimal BuyerWallet { get; set; }
         public decimal WalletAfterBuy { get; set; }

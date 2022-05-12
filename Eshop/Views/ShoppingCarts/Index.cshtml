@@ -19,19 +19,19 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr data-href="posts/details/@item.PostId">
+                <tr data-href="posts/details/@item.OfferId">
                     <td>
-                        <img class="image-size" src="@("/Images/" + item.Post.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
+                        <img class="image-size" src="@("/Images/" + item.Offer.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
                     </td>
                     <td>
-                        <p class="table-title-w table-title-font"> @Html.DisplayFor(modelItem => item.Post.Title)</p>
-                        <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => item.Post.Content)</p>
+                        <p class="table-title-w table-title-font"> @Html.DisplayFor(modelItem => item.Offer.Title)</p>
+                        <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => item.Offer.Content)</p>
                     </td>
                     <td class="price">
-                        @Html.DisplayFor(modelItem => item.Post.Price) <text> PLN</text>
+                        @Html.DisplayFor(modelItem => item.Offer.Price) <text> PLN</text>
                     </td>
                     <td>
-                        <a asp-action="Delete" asp-route-id="@item.Post.Id" class="btn btn-danger">Usuń</a>
+                        <a asp-action="Delete" asp-route-id="@item.Offer.Id" class="btn btn-danger">Usuń</a>
                     </td>
                 </tr>
 

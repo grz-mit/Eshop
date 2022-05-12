@@ -18,8 +18,8 @@
                 <a style="cursor:auto;"class="nav-link text-dark">Witaj @await Component.InvokeAsync("UserNickName")</a>
                 <a class="nav-link text-dark" asp-area="" asp-controller="DepositMoney" asp-action="Index">Dostępne Środki: @await Component.InvokeAsync("WalletBallance") PLN <i class="fas fa-wallet"></i></a>
                 <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCarts" asp-action="Index">Koszyk: @await Component.InvokeAsync("ShoppingCartCount") <i class="fa fa-shopping-cart"></i></a>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Create">Utwórz ofertę</a>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="Owned">Twoje oferty</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Offer" asp-action="Create">Utwórz ofertę</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Offer" asp-action="Owned">Twoje oferty</a>
                 <a class="nav-link text-dark" asp-area="" asp-controller="OffersEnded" asp-action="BoughtItems">Kupione</a>
                 <a class="nav-link text-dark" asp-area="" asp-controller="OffersEnded" asp-action="SoldItems">Sprzedane</a>
                 <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Twoje Konto</a>

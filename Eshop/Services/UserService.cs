@@ -11,12 +11,10 @@ namespace Eshop.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IUserContextService _userContext;
-
-        public UserService(IUserRepository userRepository, IUserContextService userContext)
+        
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _userContext = userContext;
         }
 
         public async Task DepositMoney(decimal money)

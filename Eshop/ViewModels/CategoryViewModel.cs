@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Eshop.ViewModels
 {
-    public class CategoryModel
+    public class CategoryViewModel
     {
-        public List<PostModel> Posts { get; set; }
+        public List<OfferModel> Offers { get; set; }
         public SelectList Genres { get; set; }
     }
 }

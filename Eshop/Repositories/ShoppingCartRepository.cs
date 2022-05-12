@@ -25,8 +25,8 @@ namespace Eshop.Repositories
         public async Task <List<ShoppingCartModel>> GetUserCartItems()
         {
             var result =  await _context.ShoppingCarts.Where(p => p.CartId == _userContextService.UserId)
-                                                      .Include(p => p.Post)
-                                                      .Include(p => p.Post.GalleryModel.ImageModel)    
+                                                      .Include(p => p.Offer)
+                                                      .Include(p => p.Offer.GalleryModel.ImageModel)    
                                                       .ToListAsync();
             return result;
         }

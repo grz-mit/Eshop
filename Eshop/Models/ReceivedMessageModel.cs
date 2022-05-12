@@ -14,7 +14,7 @@ namespace Eshop.Models
         public string MessageTitle { get; set; }
         public string MessageContent { get; set; }
         public string SenderName { get; set; }
-        public string PostName { get; set; }
+        public string OfferTitle { get; set; }
         public DateTime SentDate { get; set; }
         public AppUser User { get; set; }
         [NotMapped]
