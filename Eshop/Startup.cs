@@ -35,11 +35,9 @@ namespace Eshop
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            //db
             services.AddDbContext<EshopDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("AuthDbContextConnection")));
-
-            //services.AddDbContext<EshopDbContext>(options =>
-            //        options.UseSqlServer(Configuration.GetConnectionString("EshopContext"))); 
+                    options.UseSqlServer(Configuration.GetConnectionString("EshopContext"))); 
 
             services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<EshopDbContext>();
