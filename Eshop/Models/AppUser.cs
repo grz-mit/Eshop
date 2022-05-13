@@ -27,6 +27,6 @@ namespace Eshop.Models
         public List<SentMessageModel> SentMessageModel { get; set; }
         public List<ReceivedMessageModel> ReceivedMessageModels { get; set; }
         public List<OfferModel> Offers { get; set; }
-        public List<SoldPostModel> SoldPosts { get; set; }
+        public List<OfferEndedModel> SoldPosts { get; set; }
     }
 }

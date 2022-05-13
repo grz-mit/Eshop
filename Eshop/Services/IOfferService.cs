@@ -16,8 +16,8 @@ namespace Eshop.Services
         Task<OfferModel> OfferToDelete(int? id);
         Task DeleteOffer(int id);
         Task<BuyViewModel> OfferToBuy(int? id);
-        Task BuyOffer(int id, SoldPostModel soldOffer);
-        Task CreateOffer(CreateOfferDTO createPostDTO);
+        Task BuyOffer(int id, OfferEndedModel offerEnded);
+        Task CreateOffer(CreateOfferDTO createOfferDTO);
         Task<List<OfferModel>> OffersOwnedByUser();
     }
 }

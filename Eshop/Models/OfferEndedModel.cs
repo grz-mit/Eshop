@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Eshop.Models
 {
-    public class SoldPostModel
+    public class OfferEndedModel
     {
         public int Id { get; set; }
         public string UserWhoBought { get;set; } //id kupujacego

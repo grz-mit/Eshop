@@ -16,21 +16,21 @@ namespace Eshop.Services
             _offersEndedRepository = offersEndedRepository;
         }
 
-        public async Task<List<SoldPostModel>> GetSoldItemsByUserId()
+        public async Task<List<OfferEndedModel>> GetSoldItemsByUserId()
         {
             var itemsSold = await _offersEndedRepository.GetSoldItemsByUserId();
 
             return itemsSold;
         }
 
-        public async Task<List<SoldPostModel>> GetBoughtItemsByUserId()
+        public async Task<List<OfferEndedModel>> GetBoughtItemsByUserId()
         {
             var itemsBought = await _offersEndedRepository.GetBoughtItemsByUser();
 
             return itemsBought;
         }
 
-        public async Task<SoldPostModel> GetBoughtOffer(int mainOfferId)
+        public async Task<OfferEndedModel> GetBoughtOffer(int mainOfferId)
         {
             var itemBought = await _offersEndedRepository.GetBoughtOffer(mainOfferId);
 

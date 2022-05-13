@@ -12,8 +12,8 @@ namespace Eshop
     {
         public EshopMappingProfile()
         {
-            CreateMap<OfferModel, SoldPostModel>();
-            
+            CreateMap<OfferModel, OfferEndedModel>();
+
             CreateMap<CreateOfferDTO, OfferModel>();
 
             CreateMap<MessageDTO, ReceivedMessageModel>()

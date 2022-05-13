@@ -24,12 +24,12 @@ namespace Eshop.Services
         private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly IUserRepository _userRepository;
-        private readonly ISoldPostRepository _soldPostRepository;
+        private readonly IOffersEndedRepository _offerEndedRepository;
         private readonly IMapper _mapper;
 
         public OfferService(IMapper mapper, IOfferRepository offerRepository, IUserContextService userContextService,
             IShoppingCartRepository shoppingCartRepository, IWebHostEnvironment hostEnvironment, 
-            IUserRepository userRepository, ISoldPostRepository soldPostRepository)
+            IUserRepository userRepository, IOffersEndedRepository offerEndedRepository)
         {
             _mapper = mapper;
             _offerRepository = offerRepository;
@@ -37,7 +37,7 @@ namespace Eshop.Services
             _shoppingCartRepository = shoppingCartRepository;
             _hostEnvironment = hostEnvironment;
             _userRepository = userRepository;
-            _soldPostRepository = soldPostRepository;
+            _offerEndedRepository = offerEndedRepository;
         }
 
         public async Task<List<OfferModel>> FilteredOffers(string searchString, string offerCategory, decimal offerPriceFrom, decimal offerPriceTo)
@@ -158,7 +158,7 @@ namespace Eshop.Services
             return buyVM;
         }
 
-        public async Task BuyOffer(int id, SoldPostModel soldPost)
+        public async Task BuyOffer(int id, OfferEndedModel offerEnded)
         {
             var index = 0;
             var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "images");
@@ -177,10 +177,10 @@ namespace Eshop.Services
                 seller.Wallet = seller.Wallet + offer.Price;
                 buyer.Wallet = buyer.Wallet - offer.Price;
 
-                soldPost.UserWhoBought = _userContextService.UserId;
-                soldPost.SoldDate = DateTime.Now;
+                offerEnded.UserWhoBought = _userContextService.UserId;
+                offerEnded.SoldDate = DateTime.Now;
 
-                await _soldPostRepository.CreateSoldPost(soldPost);
+                await _offerEndedRepository.CreateOfferEnded(offerEnded);
                 await _userRepository.UpdateUser(seller);
                 await _userRepository.UpdateUser(buyer);
                 await _offerRepository.DeleteOffer(offer);

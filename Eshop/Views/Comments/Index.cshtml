@@ -29,7 +29,7 @@
                 <form enctype="multipart/form-data" asp-action="AddCom" asp-controller="Comments">
                     <div class="form-group">
                         <input type="hidden" asp-for="CreateCommentDTO.ReceiverUserId" value="@Model.OfferBought.UserId" />
-                        <input type="hidden" asp-for="CreateCommentDTO.SoldOfferId" value="@Model.OfferBought.Id" />
+                        <input type="hidden" asp-for="CreateCommentDTO.OfferEndedId" value="@Model.OfferBought.Id" />
                         <label class="control-label">Napisz Komentarz</label>
                         <textarea class="form-control text-area-resize" rows="5" asp-for="CreateCommentDTO.Com"></textarea>
                     </div>

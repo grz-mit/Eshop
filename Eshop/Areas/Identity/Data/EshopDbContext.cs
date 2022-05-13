@@ -24,7 +24,7 @@ namespace Eshop.Data
         public DbSet<GalleryModel> Galleries { get; set; }
         public DbSet<ShoppingCartModel> ShoppingCarts { get; set; }
         public DbSet<CommentModel> Comments { get; set; }
-        public DbSet<SoldPostModel> SoldPosts { get; set; }
+        public DbSet<OfferEndedModel> OffersEnded { get; set; }
         public DbSet<SentMessageModel> SentMessages { get; set; }
         public DbSet<ReceivedMessageModel> ReceivedMessages { get; set; }
         public DbSet<ImageModel> Images { get; set; }

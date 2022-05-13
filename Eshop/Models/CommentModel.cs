@@ -13,15 +13,13 @@ namespace Eshop.Models
         [Required]
         public string UserId { get; set; }
         public string OfferUserId { get; set; } 
-        //public int PostId { get; set; } 
-        //public string IdForReply { get; set; }
-        public int SoldOfferId { get; set; }
+        public int OfferEndedId { get; set; }
         public string NickName { get; set; }
         public string Com { get; set; }
         public int Rate { get; set; }
         public string Title { get; set; }    
         public AppUser User { get; set; }
         public ReplyComModel Reply { get; set; }
-        public SoldPostModel SoldOffer { get; set; }
+        public OfferEndedModel OfferEnded { get; set; }
     }
 }

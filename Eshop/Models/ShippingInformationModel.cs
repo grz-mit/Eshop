@@ -10,7 +10,7 @@ namespace Eshop.Models
     public class ShippingInformationModel
     {
         public int Id { get; set; }
-        public int SoldPostId { get; set; }
+        public int OfferEndedId{ get; set; }
 
         [Required(ErrorMessage = "To pole jest wymagane.")]
         public string Name { get; set; }
@@ -34,6 +34,6 @@ namespace Eshop.Models
         [RegularExpression(@"^[\d]{2}[-][\d]{3}$", ErrorMessage = "Niewłaściwy kod pocztowy. Prawidłowy format: xx-xxx.")]
         public string PostCode { get; set; }
 
-        public SoldPostModel SoldPost { get; set; }
+        public OfferEndedModel OfferEnded { get; set; }
     }
 }

@@ -6,9 +6,9 @@ namespace Eshop.Repositories
 {
     public interface IOffersEndedRepository
     {
-        Task<List<SoldPostModel>> GetBoughtItemsByUser();
-        Task<List<SoldPostModel>> GetSoldItemsByUserId();
-
-        Task<SoldPostModel> GetBoughtOffer(int mainOfferId);
+        Task<List<OfferEndedModel>> GetBoughtItemsByUser();
+        Task<List<OfferEndedModel>> GetSoldItemsByUserId();
+        Task CreateOfferEnded(OfferEndedModel offerEnded);
+        Task<OfferEndedModel> GetBoughtOffer(int mainOfferId);
     }
 }

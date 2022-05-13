@@ -49,7 +49,7 @@ namespace Eshop.Controllers
         {
             await _commentService.CreateComment(createCommentDTO);
             
-            return RedirectToAction("Index", new { id = createCommentDTO.SoldOfferId });        
+            return RedirectToAction("Index", new { id = createCommentDTO.OfferEndedId });        
         }
 
     }

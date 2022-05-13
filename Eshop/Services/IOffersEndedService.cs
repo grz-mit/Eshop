@@ -6,8 +6,8 @@ namespace Eshop.Services
 {
     public interface IOffersEndedService
     {
-        Task<List<SoldPostModel>> GetBoughtItemsByUserId();
-        Task<List<SoldPostModel>> GetSoldItemsByUserId();
-        Task<SoldPostModel> GetBoughtOffer(int mainOfferId);
+        Task<List<OfferEndedModel>> GetBoughtItemsByUserId();
+        Task<List<OfferEndedModel>> GetSoldItemsByUserId();
+        Task<OfferEndedModel> GetBoughtOffer(int mainOfferId);
     }
 }

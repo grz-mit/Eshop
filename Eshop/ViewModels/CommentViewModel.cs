@@ -13,7 +13,7 @@ namespace Eshop.ViewModels
         public AppUser User { get; set; }
         public List<CommentModel> Comments { get; set; }
         public CreateCommentDTO CreateCommentDTO { get; set; }
-        public SoldPostModel OfferBought { get; set; }
+        public OfferEndedModel OfferBought { get; set; }
         public string Avg { get; set; }
         public string ComCount { get; set; }
     }

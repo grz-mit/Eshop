@@ -104,14 +104,14 @@ namespace Eshop.Controllers
         //dodac automappera ktory zmauje na sold post model posta 
         [HttpPost, ActionName("Buy")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BuyConfirmed(int id, SoldPostModel soldPost)
+        public async Task<IActionResult> BuyConfirmed(int id, OfferEndedModel offerEnded)
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Buy));
             }
 
-            await _postService.BuyOffer(id, soldPost);
+            await _postService.BuyOffer(id, offerEnded);
 
             return RedirectToAction(nameof(Index));
 

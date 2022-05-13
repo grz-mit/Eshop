@@ -20,33 +20,39 @@ namespace Eshop.Repositories
             _userContextService = userContextService;
         }
 
-        public async Task<List<SoldPostModel>> GetSoldItemsByUserId()
+        public async Task<List<OfferEndedModel>> GetSoldItemsByUserId()
         {
-            var result = await _context.SoldPosts.Where(p => p.UserId == _userContextService.UserId)
-                                                 .Include(p => p.ShippingInformation)
-                                                 .ToListAsync();
+            var result = await _context.OffersEnded.Where(p => p.UserId == _userContextService.UserId)
+                                                   .Include(p => p.ShippingInformation)
+                                                   .ToListAsync();
 
             return result;
         }
 
-        public async Task<List<SoldPostModel>> GetBoughtItemsByUser()
+        public async Task<List<OfferEndedModel>> GetBoughtItemsByUser()
         {
-            var result = await _context.SoldPosts.Where(p => p.UserWhoBought == _userContextService.UserId)
-                                                 .Include(p => p.User)
-                                                 .Include(p => p.ShippingInformation)
-                                                 .ToListAsync();
+            var result = await _context.OffersEnded.Where(p => p.UserWhoBought == _userContextService.UserId)
+                                                   .Include(p => p.User)
+                                                   .Include(p => p.ShippingInformation)
+                                                   .ToListAsync();
 
             return result;
         }
 
-        public async Task<SoldPostModel> GetBoughtOffer(int mainOfferId)
+        public async Task<OfferEndedModel> GetBoughtOffer(int mainOfferId)
         {
-            var result = await _context.SoldPosts.Include(p => p.User)
-                                                 .Include(p => p.Comment)
-                                                 .Include(p => p.ShippingInformation)
-                                                 .FirstOrDefaultAsync(p => p.Id == mainOfferId);
-
+            var result = await _context.OffersEnded.Include(p => p.User)
+                                                   .Include(p => p.Comment)
+                                                   .Include(p => p.ShippingInformation)
+                                                   .FirstOrDefaultAsync(p => p.Id == mainOfferId);
+             
             return result;
+        }
+
+        public async Task CreateOfferEnded(OfferEndedModel offerEnded)
+        {
+            await _context.OffersEnded.AddAsync(offerEnded);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Eshop.Models
         public AppUser User { get; set; }
         
         [NotMapped]
-        public SoldPostModel SoldPost { get; set; }
+        public OfferEndedModel SoldPost { get; set; }
 
         [NotMapped]
         public SentMessageModel SentMessage { get; set; }
