@@ -17,6 +17,8 @@ using Eshop.Repositories;
 using Eshop.Services;
 using Eshop.Middleware;
 using AutoMapper;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Eshop
 {
@@ -34,6 +36,18 @@ namespace Eshop
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.Configure<RequestLocalizationOptions>(options=>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                {
+                    new CultureInfo("en-US"),
+                    new CultureInfo("en"),
+                };
+
+                    options.DefaultRequestCulture = new RequestCulture("en-US");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                });
 
             //db
             services.AddDbContext<EshopDbContext>(options =>
@@ -101,6 +115,7 @@ namespace Eshop
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseRequestLocalization();
 
             
 
