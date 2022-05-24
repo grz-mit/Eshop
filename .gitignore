@@ -15,6 +15,7 @@ x64/
 [Oo]bj/
 Migrations/
 wwwroot/Images/
+.vs/Eshop/DesignTimeBuild/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
