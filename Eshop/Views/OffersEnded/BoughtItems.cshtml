@@ -12,29 +12,25 @@
     @foreach (var item in Model)
     {
         <div class="container-bg-radius">
-            <table class="table">
-                <tbody>
-                    <tr data-href="posts/details/@item.Id">
-                        <td>
-                            <img class="image-size" src="@("/Images/" + item.Thumbnail)" asp-append-version="true" alt="First slide">
-                        </td>
-                        <td>
-                            <p class="table-title-w table-title-font"> @Html.DisplayFor(modelItem => item.Title)</p>
-                            <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => item.Content)</p>
-                        </td>
-                        <td>
-                        </td>
-                        <td class="price">
-                            @Html.DisplayFor(modelItem => item.Price) <text> PLN</text>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="offer">
+                <div class="row-offer">
+                    <div class=" image-column">
+                        <img class="image-offer" src="@("/Images/"+item.Thumbnail)" asp-append-version="true" />
+                    </div>
+                    <div class="description-column">
+                        <p class="table-title-w table-title-font">@item.Title</p>
+                        <p class="table-content-w breaking-wordDB">@item.Content</p>
+                    </div>
+                    <div class="price-column">
+                        <text class="price">@item.Price PLN</text>
+                    </div>
+                </div>    
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col">
                         <hr />
-                        <h4>Dane które podano do wysyłki sprzedającemu: <a asp-action="Index" asp-controller="Comments"  asp-route-id="@item.Id">@item.User.NickName</a></h4>
+                        <h4>Dane które podano do wysyłki sprzedającemu: <a asp-action="Index" asp-controller="Comments" asp-route-id="@item.Id">@item.User.NickName</a></h4>
                         <p style="font-weight:600">Imię: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.Name)</a></p>
                         <p style="font-weight:600">Nazwisko: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.SecondName)</a></p>
                         <p style="font-weight:600">Email: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.Email)</a></p>

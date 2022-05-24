@@ -5,40 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    tr[data-href] {
-        cursor: pointer;
-    }
-</style>
-
-<h1 style="padding-bottom: 10px; padding-top: 10px;">Koszyk</h1>
+<h1 class="title-font">Koszyk</h1>
 
 @if (Model.Count() > 0)
-{
-    <table class="table table-hover">
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr data-href="posts/details/@item.OfferId">
-                    <td>
-                        <img class="image-size" src="@("/Images/" + item.Offer.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
-                    </td>
-                    <td>
-                        <p class="table-title-w table-title-font"> @Html.DisplayFor(modelItem => item.Offer.Title)</p>
-                        <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => item.Offer.Content)</p>
-                    </td>
-                    <td class="price">
-                        @Html.DisplayFor(modelItem => item.Offer.Price) <text> PLN</text>
-                    </td>
-                    <td>
-                        <a asp-action="Delete" asp-route-id="@item.Offer.Id" class="btn btn-danger">Usuń</a>
-                    </td>
-                </tr>
-
-            }
-        </tbody>
-    </table>
-}
+ {
+ <div class="offer">
+    @foreach (var item in Model)
+     {
+     <div data-href="Offer/Details/@item.OfferId" class="row-offer row-offer-border">
+         <div class=" image-column">
+             <img class="image-offer" src="@("/Images/"+item.Offer.GalleryModel.ImageModel[0].Name)" asp-append-version="true" />
+         </div>
+         <div class="description-column">
+             <text></text>
+             <p class="table-title-w table-title-font">@item.Offer.Title</p>
+             <p class="table-content-w breaking-wordDB">@item.Offer.Content</p>
+         </div>
+         <div class="price-column">
+             <text class="price">@item.Offer.Price PLN</text>
+         </div>
+     </div>   
+     }
+ </div>
+ }
 else
 {
     <hr />
@@ -47,7 +36,7 @@ else
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const rows = document.querySelectorAll("tr[data-href]");
+        const rows = document.querySelectorAll("div[data-href]");
 
         rows.forEach(row => {
             row.addEventListener("click", () => {

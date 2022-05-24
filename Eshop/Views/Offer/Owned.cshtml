@@ -12,29 +12,25 @@
 
 <h1 style="padding-bottom: 10px; padding-top: 10px;">Twoje Oferty</h1>
 @if (Model.Count() > 0)
-{
-<table class="table table-hover">
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr data-href="details/@item.Id">
-                <td>
-                    <img class="image-size" src="@("/Images/" + item.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
-                </td>
-                <td>
-                    <p class="table-title-w table-title-font"> @Html.DisplayFor(modelItem => item.Title)</p>
-                    <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => item.Content)</p>
-                </td>
-                <td>
-                </td>
-                <td class="price">
-                    @Html.DisplayFor(modelItem => item.Price) <text> PLN</text>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-}
+ {
+ <div class="offer">
+    @foreach (var item in Model)
+     {
+     <div data-href="Offer/Details/@item.Id" class="row-offer row-offer-border">
+         <div class=" image-column">
+             <img class="image-offer" src="@("/Images/"+item.GalleryModel.ImageModel[0].Name)" asp-append-version="true" />
+         </div>
+         <div class="description-column">
+             <p class="table-title-w table-title-font">@item.Title</p>
+             <p class="table-content-w breaking-wordDB">@item.Content</p>
+         </div>
+         <div class="price-column">
+             <text class="price">@item.Price PLN</text>
+         </div>
+     </div>   
+     }
+ </div>
+ }
 else
 {
     <hr />
@@ -43,7 +39,7 @@ else
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const rows = document.querySelectorAll("tr[data-href]");
+        const rows = document.querySelectorAll("div[data-href]");
 
         rows.forEach(row => {
             row.addEventListener("click", () => {

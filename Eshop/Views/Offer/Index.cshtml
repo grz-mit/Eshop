@@ -5,12 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    tr[data-href] {
-        cursor: pointer;
-    }
-</style>
-
 <h1 style="padding-top: 10px; padding-bottom: 10px;">Oferty</h1>
 
 <form class="searchPost" asp-controller="Offer" asp-action="Index" method="get">
@@ -18,38 +12,33 @@
         <input type="text" placeholder="Szukaj.." name="searchString">
         <input type="number" step=".01" min="0" placeholder="Cena: Od" name="postPriceFrom">
         <input type="number" step=".01" min="0" placeholder="Cena: Do" name="postPriceTo">
-        <select type="text"  asp-items="Model.Genres" name="postCategory">
+        <select type="text" asp-items="Model.Genres" name="postCategory">
             <option value="">Wszystko</option>
         </select>
         <button type="submit"><i class="fa fa-search"></i></button>
     </p>
 </form>
-
-<table style="border-bottom:solid 1px #dee2e6;" class="table table-hover">
-    <tbody>
-        @foreach (var item in Model.Offers)
-        {
-            <tr data-href="Offer/Details/@item.Id" style="transition: background 0.4s ease-out;">
-                <td>
-                    <img class="image-size" src="@("/Images/"+item.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
-                </td>
-                <td>
-                    <p class="table-title-w table-title-font"> @Html.DisplayFor(modelItem => item.Title)</p>
-                    <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => item.Content)</p>
-                </td>
-                <td>
-                </td>
-                <td class="price">
-                    @Html.DisplayFor(modelItem => item.Price) <text> PLN</text>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="offer">
+    @foreach (var item in Model.Offers)
+     {
+    <div data-href="Offer/Details/@item.Id" class="row-offer row-offer-border">
+        <div class=" image-column">
+            <img class="image-offer" src="@("/Images/"+item.GalleryModel.ImageModel[0].Name)" asp-append-version="true" />
+        </div>
+        <div class="description-column">
+            <p class="table-title-w table-title-font">@item.Title</p>
+            <p class="table-content-w breaking-wordDB">@item.Content</p>
+        </div>
+        <div class="price-column">
+            <text class="price">@item.Price PLN</text>
+        </div>
+    </div>  
+     }
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const rows = document.querySelectorAll("tr[data-href]");
+        const rows = document.querySelectorAll("div[data-href]");
 
         rows.forEach(row => {
             row.addEventListener("click", () => {

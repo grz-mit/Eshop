@@ -4,13 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    tr[data-href] {
-        cursor: pointer;
-    }
-</style>
 
-<h1 style="padding-bottom: 10px; padding-top: 10px;">Wysłane wiadomości</h1>
+<h1 class="title-font">Wysłane wiadomości</h1>
 <div style="padding-bottom: 15px;">
     <a class="btn btn-dark" asp-controller="Messages" asp-action="Received">Otrzymane</a>
     <a class="btn btn-dark" asp-controller="Messages" asp-action="Sent">Wysłane</a>
@@ -18,35 +13,32 @@
 
     @if (Model.Count() > 0)
     {
-        <table class="table table-hover">
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr class="mailbox-table" data-href="sentdetails/@item.Id">
-                        <td style="height: inherit;">
-                            <a class="table-title-w table-title-font">Do: @Html.DisplayFor(modelItem => item.ReceiverName)</a>
-                        </td>
-                        <td style="height: inherit;">
-                            <a style ="display:block;" class="table-message-w table-title-font"> @Html.DisplayFor(modelItem => item.MessageTitle)</a>
-                        </td>
-                        <td style="height: inherit; text-align: right; padding-right: 10px;">
-                            <a class="table-title-font"> @item.SentDate.ToString("g")</a>
-                        </td>
-
-                    </tr>
-                }
-            </tbody>
-        </table>
+     <div class="messages">
+         @foreach (var item in Model)
+          {
+              <div data-href="SentDetails/@item.Id" class="message-row">
+                  <div class="message-user-name">
+                      <p>Do: @item.ReceiverName</p>
+                  </div>
+                  <div class="message-title">
+                      <p>@item.MessageTitle</p>
+                  </div>
+                  <div class="message-date">
+                      <p>@item.SentDate.ToString("g")</p>
+                  </div>
+              </div>
+          }
+    </div>
     }
     else
     {
         <hr />
-        <a>Brak wysłanych wiadomości.</a>
+        <p>Brak wysłanych wiadomości.</p>
     }
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const rows = document.querySelectorAll("tr[data-href]");
+            const rows = document.querySelectorAll("div[data-href]");
 
             rows.forEach(row => {
                 row.addEventListener("click", () => {

@@ -7,28 +7,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4 style="padding-bottom: 10px; padding-top: 10px;">Przedmiot który kupujesz</h4>
+<h4 class="title-font">Przedmiot który kupujesz</h4>
 
-<table class="table">
-    <tbody>
-        <tr data-href="posts/details/@Model.Offer.Id">
-            <td>
-                <img class="image-size" src="@("/Images/" + Model.Offer.GalleryModel.ImageModel[0].Name)" asp-append-version="true" alt="First slide">
-            </td>
-            <td>
-                <p class="table-title-w table-title-font"> @Model.Offer.Title</p>
-                <p class="table-content-w breaking-wordDB">@Model.Offer.Content</p>
-            </td>
-            <td>
-            </td>
-            <td class="price">
-                @Model.Offer.Price <text> PLN</text>
-            </td>
-        </tr>
-    </tbody>
-</table>
 <hr />
 
+<div data-href="/Offer/Details/@Model.Offer.Id" class="row-offer">
+    <div class=" image-column">
+        <img class="image-offer" src="@("/Images/"+Model.Offer.GalleryModel.ImageModel[0].Name)" asp-append-version="true" />
+    </div>
+    <div class="description-column">
+        <p class="table-title-w table-title-font">@Model.Offer.Title</p>
+        <p class="table-content-w breaking-wordDB">@Model.Offer.Content</p>
+    </div>
+    <div class="price-column">
+        <text class="price">@Model.Offer.Price PLN</text>
+    </div>
+</div>
 
 <h4>Dane do Wysylki</h4>
 <hr />
@@ -42,65 +36,65 @@
         </div>
         @if (Model.WalletAfterBuy >= 0)
         {
-    <form enctype="multipart/form-data" asp-action="Buy">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label class="control-label">Stan konta po kupnie : @Model.WalletAfterBuy</label>
-        </div>
-        <input type="hidden" asp-for="OfferEnded.UserId" value="@Model.Offer.UserId" />
-        <input type="hidden" asp-for="OfferEnded.Title" value="@Model.Offer.Title" />
-        <input type="hidden" asp-for="OfferEnded.Content" value="@Model.Offer.Content" />
-        <input type="hidden" asp-for="OfferEnded.Price" value="@Model.Offer.Price" />
-        <input type="hidden" asp-for="OfferEnded.Category" value="@Model.Offer.Category" />
-        <input type="hidden" asp-for="OfferEnded.Thumbnail" value="@Model.Offer.GalleryModel.ImageModel[0].Name" />
-        <div class="form-group">
-            <label asp-for="OfferEnded.ShippingInformation.Name" class="control-label">Imię</label>
-            <input asp-for="OfferEnded.ShippingInformation.Name" class="form-control" />
-            <span asp-validation-for="OfferEnded.ShippingInformation.Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="OfferEnded.ShippingInformation.SecondName" class="control-label">Nazwisko</label>
-            <input asp-for="OfferEnded.ShippingInformation.SecondName" class="form-control" />
-            <span asp-validation-for="OfferEnded.ShippingInformation.SecondName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="OfferEnded.ShippingInformation.Email" class="control-label">Email</label>
-            <input asp-for="OfferEnded.ShippingInformation.Email" class="form-control" />
-            <span asp-validation-for="OfferEnded.ShippingInformation.Email" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="OfferEnded.ShippingInformation.Address" class="control-label">Adres</label>
-            <input asp-for="OfferEnded.ShippingInformation.Address" class="form-control" />
-            <span asp-validation-for="OfferEnded.ShippingInformation.Address" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="OfferEnded.ShippingInformation.City" class="control-label">Miasto</label>
-            <input asp-for="OfferEnded.ShippingInformation.City" class="form-control" />
-            <span asp-validation-for="OfferEnded.ShippingInformation.City" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="OfferEnded.ShippingInformation.PostCode" class="control-label">Kod pocztowy</label>
-            <input asp-for="OfferEnded.ShippingInformation.PostCode" class="form-control" />
-            <span asp-validation-for="OfferEnded.ShippingInformation.PostCode" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="OfferEnded.ShippingInformation.PhoneNumber" class="control-label">Numer Telefonu</label>
-            <input type="number" asp-for="OfferEnded.ShippingInformation.PhoneNumber" class="form-control" />
-            <span asp-validation-for="OfferEnded.ShippingInformation.PhoneNumber" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Kup" class="btn btn-success" />
-        </div>
-    </form>
+            <form enctype="multipart/form-data" asp-action="Buy">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Stan konta po kupnie : @Model.WalletAfterBuy</label>
+                </div>
+                <input type="hidden" asp-for="OfferEnded.UserId" value="@Model.Offer.UserId" />
+                <input type="hidden" asp-for="OfferEnded.Title" value="@Model.Offer.Title" />
+                <input type="hidden" asp-for="OfferEnded.Content" value="@Model.Offer.Content" />
+                <input type="hidden" asp-for="OfferEnded.Price" value="@Model.Offer.Price" />
+                <input type="hidden" asp-for="OfferEnded.Category" value="@Model.Offer.Category" />
+                <input type="hidden" asp-for="OfferEnded.Thumbnail" value="@Model.Offer.GalleryModel.ImageModel[0].Name" />
+                <div class="form-group">
+                    <label asp-for="OfferEnded.ShippingInformation.Name" class="control-label">Imię</label>
+                    <input asp-for="OfferEnded.ShippingInformation.Name" class="form-control" />
+                    <span asp-validation-for="OfferEnded.ShippingInformation.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfferEnded.ShippingInformation.SecondName" class="control-label">Nazwisko</label>
+                    <input asp-for="OfferEnded.ShippingInformation.SecondName" class="form-control" />
+                    <span asp-validation-for="OfferEnded.ShippingInformation.SecondName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfferEnded.ShippingInformation.Email" class="control-label">Email</label>
+                    <input asp-for="OfferEnded.ShippingInformation.Email" class="form-control" />
+                    <span asp-validation-for="OfferEnded.ShippingInformation.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfferEnded.ShippingInformation.Address" class="control-label">Adres</label>
+                    <input asp-for="OfferEnded.ShippingInformation.Address" class="form-control" />
+                    <span asp-validation-for="OfferEnded.ShippingInformation.Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfferEnded.ShippingInformation.City" class="control-label">Miasto</label>
+                    <input asp-for="OfferEnded.ShippingInformation.City" class="form-control" />
+                    <span asp-validation-for="OfferEnded.ShippingInformation.City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfferEnded.ShippingInformation.PostCode" class="control-label">Kod pocztowy</label>
+                    <input asp-for="OfferEnded.ShippingInformation.PostCode" class="form-control" />
+                    <span asp-validation-for="OfferEnded.ShippingInformation.PostCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OfferEnded.ShippingInformation.PhoneNumber" class="control-label">Numer Telefonu</label>
+                    <input type="number" asp-for="OfferEnded.ShippingInformation.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="OfferEnded.ShippingInformation.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Kup" class="btn btn-success" />
+                </div>
+            </form>
         }
         else
         {
-        <div class="form-group">
-            <label class="control-label">Stan konta po kupnie : <text class="text-danger">Nie wystarczajaca ilość środków na koncie.</text></label>
-        </div>
-        <div class="form-group">
-            <a asp-area="" asp-controller="DepositMoney" asp-action="Index" class="btn btn-success">Doładuj Konto</a>
-        </div> 
+            <div class="form-group">
+                <label class="control-label">Stan konta po kupnie : <text class="text-danger">Nie wystarczajaca ilość środków na koncie.</text></label>
+            </div>
+            <div class="form-group">
+                <a asp-area="" asp-controller="DepositMoney" asp-action="Index" class="btn btn-success">Doładuj Konto</a>
+            </div>
         }
     </div>
 </div>
@@ -108,3 +102,14 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const rows = document.querySelectorAll("div[data-href]");
+
+        rows.forEach(row => {
+            row.addEventListener("click", () => {
+                window.location.href = row.dataset.href;
+            })
+        })
+    })
+</script>

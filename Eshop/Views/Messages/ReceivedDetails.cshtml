@@ -3,19 +3,12 @@
 
 <div class="row">
     <div class="col">
-            <h3 style="padding-top: 10px;">Otrzymana Wiadomość</h3>
-            <p><a style="font-weight:600;">Od:</a> @Model.SenderName</p>
-            <p><a style="font-weight:600;">Odnosnie ogłoszenia:</a> @Model.OfferTitle</p>
-
-        <a style="font-weight:600;">Tytuł:</a>
-        <div class="message-title">
-            <a class="message-title-text">@Model.MessageTitle</a>
-        </div>
-
-        <a style="font-weight:600;">Wiadomość:</a>
-        <div class="message-content">
-            <a class="message-content-text">@Model.MessageContent</a>
-        </div>
+        <h3 class="title-font">Otrzymana Wiadomość</h3>
+        <p><span class="font-w600">Od:</span> @Model.SenderName</p>
+        <p><span class="font-w600">Odnosnie ogłoszenia:</span> @Model.OfferTitle</p>
+        <p><span class="font-w600">Tytuł:</span> @Model.MessageTitle</p>
+        <p class="font-w600">Wiadomość:</p>
+        <textarea readonly rows="5" class="form-control">@Model.MessageContent</textarea>
     </div>
 </div>
 

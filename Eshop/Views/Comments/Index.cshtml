@@ -5,25 +5,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<h3 class="table-title-font">O Sprzedającym</h3>
+<h3 class="title-font">O Sprzedającym</h3>
 
 <hr>
 
 <div class="container">
-    <div style="flex-wrap: nowrap;" class="row table-row">
+    <div class="user-info-row">
         <div class="col-sm-6">
-            <p>Nazwa: <a style="font-weight:600">@Model.User.NickName</a></p>
-            <p>Email: <a style="font-weight:600">@Model.User.Email</a></p>
-            <p>Z nami od <a style="font-weight:600">@Model.User.CreateDate.ToString("d")</a></p>
+            <p>Nazwa: <span class="font-w600">@Model.User.NickName</span></p>
+            <p>Email: <span class="font-w600">@Model.User.Email</span></p>
+            <p>Z nami od <span class="font-w600">@Model.User.CreateDate.ToString("d")</span></p>
         </div>
         <div class="col-sm-6 details-right-align">
-            <p>Ocena ogólna: <a style="font-weight:600">@Model.Avg</a><a>/5 </a><i class="fa fa-star"></i></p>
-            <p>Ilość komentarzy: <a style="font-weight:600">@Model.ComCount</a></p>
+            <p>Ocena ogólna: <span class="font-w600">@Model.Avg</span><span>/5 </span><i class="fa fa-star"></i></p>
+            <p>Ilość komentarzy: <span class="font-w600">@Model.ComCount</span></p>
         </div>
     </div>
     @if (Model.OfferBought.UserWhoBought == Model.LoggedUser.Id && Model.OfferBought.Comment == null)
-    {
+     {
         <div class="commentbox-padding">
             <div class="commentbox">
                 <form enctype="multipart/form-data" asp-action="AddCom" asp-controller="Comments">
@@ -49,40 +48,30 @@
                 </form>
             </div>
         </div>
-    }
+     }
     @foreach (var comment in Model.Comments)
-    {
-        <table class="table border-spacing-table">
-            <tbody>
-                <tr class="comment-shadow">
-                    <td class="td-width-first-col">
-                        <p class="table-content-w breaking-wordDB"><a style="font-weight:600">@Html.DisplayFor(modelItem => comment.NickName)</a></p>
-                    </td>
-                    <td>
-                        <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => comment.Com)</p>
-                    </td>
-                    <td>
-                        <p style="text-align: right; padding-right: 25px;">Ocena: @Html.DisplayFor(modelItem => comment.Rate)/5<i class="fa fa-star"></i></p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+     {
+        <div class="comment-row-container comment-shadow">
+            <div class="name-container">
+                <p class="name font-w600">@comment.NickName</p>
+            </div>
+            <div class="comment-container">
+                <p class="comment comment-content-w">@comment.Com</p>
+            </div>
+            <div class="rate-container">
+                <p class="rate">Ocena: @comment.Rate/5 <i class="fa fa-star"></i></p>
+            </div>
+        </div>
         if (comment.Reply != null)
         {
-            <table class="table border-spacing-table">
-                <tbody>
-                    <tr class="reply comment-shadow">
-                        <td class="replyinfo td-width-first-col">
-                            <p class="replyinfoin breaking-wordDB"><i class="fas fa-level-up-alt fa-flip-horizontal"></i> Odp <a style="font-weight:600">@Html.DisplayFor(modelItem => comment.Reply.NickName)</a></p>
-                        </td>
-                        <td>
-                            <p class="table-content-w breaking-wordDB">@Html.DisplayFor(modelItem => comment.Reply.Com)</p>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="reply-row-container comment-shadow">
+                <div class="name-container">
+                    <p class="name"><i class="fas fa-level-up-alt fa-flip-horizontal"></i> Odpowiedź <span class="font-w600"> @comment.Reply.NickName </span></p>
+                </div>
+                <div class="comment-container">
+                    <p class="comment comment-content-w">@comment.Reply.Com</p>
+                </div>
+            </div>
         }
-    }
+     }
 </div>
