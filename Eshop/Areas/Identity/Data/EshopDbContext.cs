@@ -18,6 +18,16 @@ namespace Eshop.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            
+            builder.Entity<OfferModel>()
+                .Property(o => o.Price)
+                .HasColumnType("decimal")
+                .HasPrecision(18,2);
+           
+            builder.Entity<AppUser>()
+               .Property(a => a.Wallet)
+               .HasColumnType("decimal")
+               .HasPrecision(18, 2);
         }
 
         public DbSet<OfferModel> Offers { get; set; }

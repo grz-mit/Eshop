@@ -67,7 +67,7 @@ namespace Eshop.Controllers
         public async Task<IActionResult> Reply(ReceivedMessageModel replyMessage)
         {
             await _messageService.CreateReply(replyMessage);
-            return Redirect("/Posts");
+            return RedirectToAction(nameof(Sent));
         }
     }
 }

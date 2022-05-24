@@ -27,7 +27,7 @@ namespace Eshop.Controllers
         {
             await _shoppingCartService.AddToCart(id);
             
-            return Redirect("/posts/details/" + id);
+            return Redirect("/offer/details/" + id);
         }
 
         public async Task<IActionResult> Index()
