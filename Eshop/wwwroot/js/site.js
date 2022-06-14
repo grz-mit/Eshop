@@ -2,3 +2,14 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const rows = document.querySelectorAll("div[data-href]");
+
+    rows.forEach(row => {
+        row.addEventListener("click", () => {
+            window.location.href = row.dataset.href;
+        })
+    })
+})
