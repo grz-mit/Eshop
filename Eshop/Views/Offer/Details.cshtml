@@ -98,7 +98,7 @@
         </div>
     </section>
     <hr />
-    <div class="container" style="padding-top: 10px;">
+    <div class="container">
         <h4>Opis</h4>
         <p class="breaking-wordDB">@Model.Offer.Content</p>
     </div>
@@ -120,7 +120,7 @@
         }
         <a asp-action="Index" class="btn btn-dark">Powrot do listy</a>
     </div>
-    <hr style="color: black; border-top: 1px solid;" />
+    <hr class="solid-black" />
     <h3 class="container">Inne ogłoszenia użytkownika @Model.Offer.User.NickName</h3>
     @if (Model.OtherOffers.Count != 0)
     {

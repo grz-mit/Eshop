@@ -6,7 +6,7 @@
 
 
 
-<h1 style="padding-bottom: 10px; padding-top: 10px;">Kupione</h1>
+<h1 class="title-font">Kupione</h1>
 @if (Model.Count() > 0)
 {
     @foreach (var item in Model)
@@ -31,14 +31,14 @@
                     <div class="col">
                         <hr />
                         <h4>Dane które podano do wysyłki sprzedającemu: <a asp-action="Index" asp-controller="Comments" asp-route-id="@item.Id">@item.User.NickName</a></h4>
-                        <p style="font-weight:600">Imię: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.Name)</a></p>
-                        <p style="font-weight:600">Nazwisko: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.SecondName)</a></p>
-                        <p style="font-weight:600">Email: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.Email)</a></p>
-                        <p style="font-weight:600">Adres: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.Address)</a></p>
-                        <p style="font-weight:600">Miasto: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.City)</a></p>
-                        <p style="font-weight:600">Kod pocztowy: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.PostCode)</a></p>
-                        <p style="font-weight:600">Numer telefonu: <a style="font-weight:400">@Html.DisplayFor(modelItem => item.ShippingInformation.PhoneNumber)</a></p>
-                        <p style="font-weight:600">Kupiono o godzinie: <a style="font-weight:400">@item.SoldDate.ToString("g")</a></p>
+                        <p class="font-w600">Imię: <span class="font-w400">@item.ShippingInformation.Name</span></p>
+                        <p class="font-w600">Nazwisko: <span class="font-w400">@item.ShippingInformation.SecondName</span></p>
+                        <p class="font-w600">Email: <span class="font-w400">@item.ShippingInformation.Email</span></p>
+                        <p class="font-w600">Adres: <span class="font-w400">@item.ShippingInformation.Address</span></p>
+                        <p class="font-w600">Miasto: <span class="font-w400">@item.ShippingInformation.City</span></p>
+                        <p class="font-w600">Kod pocztowy: <span class="font-w400">@item.ShippingInformation.PostCode</span></p>
+                        <p class="font-w600">Numer telefonu: <span class="font-w400">@item.ShippingInformation.PhoneNumber</span></p>
+                        <p class="font-w600">Kupiono o godzinie: <span class="font-w400">@item.SoldDate.ToString("g")</span></p>
                     </div>
                 </div>
             </div>
