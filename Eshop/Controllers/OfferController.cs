@@ -34,15 +34,17 @@ namespace Eshop.Controllers
 
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index(string searchString, string postCategory, decimal postPriceFrom, decimal postPriceTo)
+        public async Task<IActionResult> Index(string searchString, string offerCategory, decimal? offerPriceFrom, decimal? offerPriceTo, int page)
         {
-            var postGenreVM = new CategoryViewModel
-            {
-                Genres = await _postService.Categories(),
-                Offers = await _postService.FilteredOffers(searchString, postCategory, postPriceFrom, postPriceTo)
-            };
+            ViewData["SearchString"] = searchString;
+            ViewData["Category"] = offerCategory;
+            ViewData["OfferPriceFrom"] = offerPriceFrom;
+            ViewData["OfferPriceTo"] = offerPriceTo;
 
-            return View(postGenreVM);
+            var filteredOffers = _postService.FilteredOffers(searchString, offerCategory, offerPriceFrom, offerPriceTo).AsQueryable();
+            var offersVM = await _postService.PaginatedOffers(filteredOffers, page);
+
+            return View(offersVM);
         }
 
         // GET: Posts/Details/5

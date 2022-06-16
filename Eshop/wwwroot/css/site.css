@@ -599,6 +599,14 @@ form.searchPost button:hover {
 
 /*end search field styles*/
 
+/*solid styles*/
+.solid-black{
+    border-top: 1px solid;
+    color: black;
+}
+
+/*solid styles*/
+
 /* Style the submit button */
 form.searchPost button {
     float: left;
@@ -626,6 +634,19 @@ div[data-href]:hover{
      background-color: rgba(0, 0, 0, 0.075);
 }
 
+.pagination-bar {
+    display: flex;
+    width: 100%;
+    height: 40px;
+}
+.pagination-page{
+    width: 50%;
+}
+.pagination-button {
+    text-align: right;
+    margin-top: 10px;
+    width: 50%;
+}
 .row-offer {
     display: flex;
     flex-wrap: nowrap;

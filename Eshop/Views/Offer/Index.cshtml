@@ -1,4 +1,4 @@
-﻿@model Eshop.ViewModels.CategoryViewModel
+﻿@model Eshop.ViewModels.OffersViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,29 +9,53 @@
 
 <form class="searchPost" asp-controller="Offer" asp-action="Index" method="get">
     <p>
-        <input type="text" placeholder="Szukaj.." name="searchString">
-        <input type="number" step=".01" min="0" placeholder="Cena: Od" name="postPriceFrom">
-        <input type="number" step=".01" min="0" placeholder="Cena: Do" name="postPriceTo">
-        <select type="text" asp-items="Model.Genres" name="postCategory">
-            <option value="">Wszystko</option>
+        <input type="text" placeholder="Szukaj.." name="searchString" value="@ViewData["SearchString"]">
+        <input type="number" step=".01" min="0" placeholder="Cena: Od" name="offerPriceFrom" value="@ViewData["OfferPriceFrom"]">
+        <input type="number" step=".01" min="0" placeholder="Cena: Do" name="offerPriceTo" value="@ViewData["OfferPriceTo"]">
+        <select type="text" asp-items="Model.Genres" name="offerCategory">
+            <option hidden disabled selected> Kategoria </option>
         </select>
         <button type="submit"><i class="fa fa-search"></i></button>
     </p>
 </form>
 <div class="offer">
     @foreach (var item in Model.Offers)
-     {
-    <div data-href="Offer/Details/@item.Id" class="row-offer row-offer-border">
-        <div class=" image-column">
-            <img class="image-offer" src="@("/Images/"+item.GalleryModel.ImageModel[0].Name)" asp-append-version="true" />
+    {
+        <div data-href="Offer/Details/@item.Id" class="row-offer row-offer-border">
+            <div class=" image-column">
+                <img class="image-offer" src="@("/Images/" + item.GalleryModel.ImageModel[0].Name)" asp-append-version="true" />
+            </div>
+            <div class="description-column">
+                <p class="table-title-w table-title-font">@item.Title</p>
+                <p class="table-content-w breaking-wordDB">@item.Content</p>
+            </div>
+            <div class="price-column">
+                <text class="price">@item.Price PLN</text>
+            </div>
         </div>
-        <div class="description-column">
-            <p class="table-title-w table-title-font">@item.Title</p>
-            <p class="table-content-w breaking-wordDB">@item.Content</p>
-        </div>
-        <div class="price-column">
-            <text class="price">@item.Price PLN</text>
-        </div>
-    </div>  
-     }
+    }
 </div>
+<div class="pagination">
+    <div class="pagination-page">
+        <p>Strona @Model.CurrentPage/@Model.Pages</p>
+    </div>
+    <div class="pagination-button">
+        <a class="btn btn-dark @Model.HasPreviousPage"
+           asp-action="Index"
+           asp-route-searchString="@ViewData["SearchString"]"
+           asp-route-offerCategory="@ViewData["Category"]"
+           asp-route-offerPriceFrom="@ViewData["OfferPriceFrom"]"
+           asp-route-offerPriceTo="@ViewData["OfferPriceTo"]"
+           asp-route-page="@(Model.CurrentPage - 1)">Poprzednia</a>
+
+        <a class="btn btn-dark @Model.HasNextPage"
+           asp-action="Index"
+           asp-route-searchString="@ViewData["SearchString"]"
+           asp-route-offerCategory="@ViewData["Category"]"
+           asp-route-offerPriceFrom="@ViewData["OfferPriceFrom"]"
+           asp-route-offerPriceTo="@ViewData["OfferPriceTo"]"
+           asp-route-page="@(Model.CurrentPage + 1)">Nastepna</a>
+    </div>
+    
+</div>
+

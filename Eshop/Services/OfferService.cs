@@ -40,7 +40,7 @@ namespace Eshop.Services
             _offerEndedRepository = offerEndedRepository;
         }
 
-        public async Task<List<OfferModel>> FilteredOffers(string searchString, string offerCategory, decimal offerPriceFrom, decimal offerPriceTo)
+        public IQueryable<OfferModel> FilteredOffers(string searchString, string offerCategory, decimal? offerPriceFrom, decimal? offerPriceTo)
         {
             var offers = _offerRepository.GetAll();
 
@@ -52,16 +52,47 @@ namespace Eshop.Services
             {
                 offers = offers.Where(x => x.Category == offerCategory);
             }
-            if (offerPriceFrom != 0)
+            if (offerPriceFrom > 0)
             {
                 offers = offers.Where(x => x.Price >= offerPriceFrom);
             }
-            if (offerPriceTo != 0)
+            if (offerPriceTo > 0)
             {
                 offers = offers.Where(x => x.Price <= offerPriceTo);
             }
 
-            return await offers.ToListAsync();
+            return offers;
+        }
+
+        public async Task<OffersViewModel> PaginatedOffers(IQueryable<OfferModel> filteredOffers, int page)
+        {
+            var offersPerPage = 3f;
+            var pageCount = Math.Ceiling(filteredOffers.Count() / offersPerPage);
+
+            if (page < 1)
+                page = 1;
+
+            if (pageCount < 1)
+                pageCount = 1;
+
+            var offers = await filteredOffers
+                .OrderBy(p => p.Id)
+                .Skip((page - 1) * (int)offersPerPage)
+                .Take((int)offersPerPage)
+                .ToListAsync();
+
+
+            var offersVM = new OffersViewModel()
+            {
+                Pages = (int)pageCount,
+                CurrentPage = page,
+                Offers = offers,
+                Genres = await Categories(),
+                HasPreviousPage = page == 1 ? "disabled" : "",
+                HasNextPage = page == pageCount || pageCount == 1 ? "disabled" : ""
+            };
+
+            return offersVM;
         }
 
         public async Task<SelectList> Categories()

@@ -3,6 +3,7 @@ using Eshop.Models;
 using Eshop.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -10,7 +11,8 @@ namespace Eshop.Services
 {
     public interface IOfferService
     {
-        Task<List<OfferModel>> FilteredOffers(string searchString, string offerCategory, decimal offerPriceFrom, decimal offerPriceTo);
+        IQueryable<OfferModel> FilteredOffers(string searchString, string offerCategory, decimal? offerPriceFrom, decimal? offerPriceTo);
+        Task<OffersViewModel> PaginatedOffers(IQueryable<OfferModel> filteredOffers, int page);
         Task<SelectList> Categories();
         Task<OfferDetailsViewModel> GetDetailsOfferVM(int? id);
         Task<OfferModel> OfferToDelete(int? id);
