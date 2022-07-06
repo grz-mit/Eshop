@@ -37,5 +37,6 @@ E-commerce ASP.NET Core web application MVC
 </p>
 
 # Requirements
+- ASP.NET Core
 - .NET 5 or higher
 - MSSQL Server
