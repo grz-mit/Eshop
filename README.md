@@ -12,6 +12,7 @@ E-commerce ASP.NET Core web application MVC
 - List of created, sold and bought items
 - Responsive view created with Bootstrap
 - Validation
+- Middleware for handling exceptions 
 
 # Example pages
 
