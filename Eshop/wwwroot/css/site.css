@@ -44,10 +44,7 @@ a {
     }
 }
 
-.item-box-blog:hover {
-    background: #eceff1;
-    transition: background 0.4s ease-out;
-}
+
 .carousel-index-elip {
     white-space: nowrap;
     overflow: hidden;
@@ -109,10 +106,9 @@ figure img {
 .item-box-blog-date {
     position: absolute;
     z-index: 5;
-    padding: 4px 20px;
-    top: -20px;
+    padding: 0px 10px;
+    top: -16px;
     right: 8px;
-    background-color: #41cb52;
 }
 
     .item-box-blog-date span {
@@ -665,6 +661,21 @@ div[data-href]:hover{
     justify-content: center;
 }
 
+.image-column-others {
+    width: 100%;
+    height: 195px;
+    padding: 0.50rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.other-offers-content {
+    line-height: 1.5em;
+    overflow: hidden;
+    word-break: break-word;
+}
+
 .image-offer {
     max-width: 100%;
     max-height: 100%;
@@ -738,6 +749,37 @@ div[data-href]:hover{
     .table-content-w {
         height: 7.5em;
         max-width: 100%;
+    }
+}
+
+
+@media (max-width:575px) {
+    .other-offers-content {
+        height: 3em;
+    }
+}
+
+@media (min-width:575px) {
+    .other-offers-content {
+        height: 3em;
+    }
+}
+
+@media (min-width:768px) {
+    .other-offers-content {
+        height: 4.5em;
+    }
+}
+
+@media (min-width:992px) {
+    .other-offers-content {
+        height: 4.5em;
+    }
+}
+
+@media (min-width:1200px) {
+    .other-offers-content {
+        height: 4.5em;
     }
 }
 

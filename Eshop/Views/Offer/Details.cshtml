@@ -135,21 +135,21 @@
                                 {
                                     break;
                                 }
-                                <div data-href="@item.Id" class="col-md-4">
-                                    <div class="item-box-blog">
-                                        <div class="item-box-blog-image">
+                                <div class="col-md-4">
+                                    <div data-href="@item.Id" class="item-box-blog">
+                                        <div class="image-column-others">
                                             <div class="item-box-blog-date bg-blue-ui white"> <span class="mon">Wystawione od @item.CreateDate.ToString("d")</span> </div>
-                                            <figure> <img alt="" src="@("/Images/" + item.GalleryModel.ImageModel[0].Name)"> </figure>
+                                            <img class="image-offer" alt="" src="@("/Images/" + item.GalleryModel.ImageModel[0].Name)">
                                         </div>
                                         <div class="item-box-blog-body">
                                             <div class="item-box-blog-text">
                                                 <h5 class="carousel-index-elip">@item.Title</h5>
                                             </div>
-                                            <div class="" style="padding: 15px;">
-                                                <p style="text-align:inherit; padding-right:0px!important;" class="price">@item.Price PLN</p>
+                                            <div>
+                                                <p class="price">@item.Price PLN</p>
                                             </div>
                                             <div class="item-box-blog-text">
-                                                <p style="padding-left:0em;" class="table-content-w breaking-wordDB">@item.Content</p>
+                                                <p class="other-offers-content">@item.Content</p>
                                             </div>
                                         </div>
                                     </div>
