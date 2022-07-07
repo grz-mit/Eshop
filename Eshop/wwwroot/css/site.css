@@ -876,6 +876,10 @@ div[data-href]:hover{
     align-items: center;
 }
 
+.comment-row-container:hover {
+    height: auto;
+}
+
 .name-container {
     height: 25%;
     width: 100%;
@@ -916,6 +920,12 @@ div[data-href]:hover{
     word-break: break-word;
     height: 5.5em;
     max-width: 90%;
+}
+
+.comment-content-w:hover{
+    overflow: visible;
+    white-space: normal;
+    height: auto;
 }
 
 
